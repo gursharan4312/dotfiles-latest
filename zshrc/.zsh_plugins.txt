@@ -1,0 +1,13 @@
+# Oh My Zsh plugins
+use-omz git
+use-omz docker
+use-omz kubectl
+use-omz colored-man-pages
+
+# Popular Zsh plugins
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
+zsh-users/zsh-completions
+
+# Theme (Powerlevel10k)
+romkatv/powerlevel10k
