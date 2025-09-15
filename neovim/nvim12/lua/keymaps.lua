@@ -53,6 +53,7 @@ keymap("n", "<leader>fh", "<cmd>FzfLua help_tags<CR>")
 keymap("n", "<leader>fb", "<cmd>FzfLua buffers<CR>")
 keymap("n", "<leader>co", "<cmd>CommandExecute<CR>")
 keymap("n", "<leader>cr", "<cmd>CommandExecuteLast<CR>")
+keymap("n", "<S-e>", '<cmd>:lua vim.diagnostic.open_float()<CR>')
 keymap("i", "<S-Tab>", 'copilot#Accept("\\<Tab>")', er)
 keymap("n", "<leader>fr", function()
     require("fzf-lua").files({

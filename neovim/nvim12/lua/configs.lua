@@ -31,5 +31,6 @@ vim.cmd.filetype("plugin indent on")
 -- vim.cmd.colorscheme("techbase")
 -- vim.cmd.colorscheme("gruber-darker")
 
+vim.cmd.colorscheme("catppuccin")
 vim.g.copilot_no_tab_map = true
 require('vim._extui').enable({})

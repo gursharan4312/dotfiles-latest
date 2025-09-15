@@ -16,6 +16,8 @@ vim.pack.add({
     { src = "https://github.com/tris203/precognition.nvim" },
 
     { src = "https://github.com/nvim-treesitter/nvim-treesitter",          branch = "main",                  build = ":TSUpdate" },
+
+    { src = "https://github.com/catppuccin/nvim" },
 })
 
 
@@ -23,13 +25,35 @@ require("hardtime").setup()
 require("precognition").toggle()
 
 require('mason').setup()
-require("mason-lspconfig").setup()
-require("mason-tool-installer").setup({
+require('mason-lspconfig').setup()
+require('mason-tool-installer').setup({
     ensure_installed = {
-        "lua_ls"
+        "lua_ls",
+        "stylua",
+        "prettierd",
+        "eslint_d",
+        "ts_ls"
     }
 })
 
+vim.lsp.config('lua_ls', {
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                globals = {
+                    'vim',
+                    'require'
+                },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+        },
+    },
+})
 require("nvim-treesitter.configs").setup({
     ensure_installed = {
         "lua",
@@ -62,6 +86,7 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function() vim.treesitter.start() end,
 })
 
+require("catppuccin").setup()
 require("gitsigns").setup({
     current_line_blame = true
 })
@@ -74,28 +99,6 @@ require("snacks").setup({
     scroll = { enabled = true },
     input = { enabled = true },
     lazygit = { enabled = true },
-})
-
-vim.lsp.config('lua_ls', {
-    settings = {
-        Lua = {
-            runtime = {
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                globals = {
-                    'vim',
-                    'require'
-                },
-            },
-            workspace = {
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
 })
 
 require("oil").setup({
@@ -169,13 +172,3 @@ require('fzf-lua').setup({
         }
     }
 })
-
-
-vim.g.vimtex_imaps_enabled = 0
-vim.g.vimtex_view_method = "skim"
-vim.g.latex_view_general_viewer = "skim"
-vim.g.latex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
-vim.g.vimtex_compiler_method = "latexmk"
-vim.g.vimtex_quickfix_open_on_warning = 0
-vim.g.vimtex_quickfix_ignore_filters = { "Underfull", "Overfull", "LaTeX Warning: .\\+ float specifier changed to",
-    "Package hyperref Warning: Token not allowed in a PDF string" }
