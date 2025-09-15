@@ -94,6 +94,7 @@ fi
 # Creating symlinks for directories
 create_symlink ~/github/dotfiles-latest/neovim/neobean/ ~/.config/neobean
 create_symlink ~/github/dotfiles-latest/neovim/nvim12/ ~/.config/nvim12
+create_symlink ~/github/dotfiles-latest/neovim/astrovim5/ ~/.config/astrovim5
 create_symlink ~/github/dotfiles-latest/neovim/quarto-nvim-kickstarter/ ~/.config/quarto-nvim-kickstarter
 create_symlink ~/github/dotfiles-latest/neovim/kickstart.nvim/ ~/.config/kickstart.nvim
 create_symlink ~/github/dotfiles-latest/ /lazyvim/ ~/.config/lazyvim

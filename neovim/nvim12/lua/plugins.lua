@@ -6,7 +6,7 @@ vim.pack.add({
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
     { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
-    { src = "https://github.com/saghen/blink.cmp",            version = vim.version.range("^1") },
+    { src = "https://github.com/saghen/blink.cmp",                         version = vim.version.range("^1") },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/folke/snacks.nvim" },
@@ -15,7 +15,7 @@ vim.pack.add({
     { src = "https://github.com/m4xshen/hardtime.nvim" },
     { src = "https://github.com/tris203/precognition.nvim" },
 
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter",          branch = "main",                  build = ":TSUpdate" },
 })
 
 
@@ -31,39 +31,39 @@ require("mason-tool-installer").setup({
 })
 
 require("nvim-treesitter.configs").setup({
-  ensure_installed = {
-    "lua",
-    "vim",
-    "vimdoc",
-    "query",
-    "javascript",
-    "html",
-    "css",
-    "json",
-    "python",
-    "c"
-  },
+    ensure_installed = {
+        "lua",
+        "vim",
+        "vimdoc",
+        "query",
+        "javascript",
+        "html",
+        "css",
+        "json",
+        "python",
+        "c"
+    },
 
-  sync_install = false,   -- install parsers async
-  auto_install = true,    -- auto install missing parsers on buffer open
+    sync_install = false, -- install parsers async
+    auto_install = true,  -- auto install missing parsers on buffer open
 
-  highlight = {
-    enable = true,        -- enable tree-sitter based highlighting
-    additional_vim_regex_highlighting = false,
-  },
+    highlight = {
+        enable = true, -- enable tree-sitter based highlighting
+        additional_vim_regex_highlighting = false,
+    },
 
-  indent = {
-    enable = true,        -- experimental tree-sitter indentation
-  },
+    indent = {
+        enable = true, -- experimental tree-sitter indentation
+    },
 })
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = { '<filetype>' },
-  callback = function() vim.treesitter.start() end,
+    pattern = { '<filetype>' },
+    callback = function() vim.treesitter.start() end,
 })
 
-require("gitsigns").setup({ 
-    current_line_blame = true 
+require("gitsigns").setup({
+    current_line_blame = true
 })
 
 require("snacks").setup({
@@ -72,31 +72,30 @@ require("snacks").setup({
     quickfile = { enabled = true },
     notifier = { enabled = true },
     scroll = { enabled = true },
-    words = { enabled = true },
     input = { enabled = true },
     lazygit = { enabled = true },
 })
 
 vim.lsp.config('lua_ls', {
-	settings = {
-		Lua = {
-			runtime = {
-				version = 'LuaJIT',
-			},
-			diagnostics = {
-				globals = {
-					'vim',
-					'require'
-				},
-			},
-			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
-			},
-			telemetry = {
-				enable = false,
-			},
-		},
-	},
+    settings = {
+        Lua = {
+            runtime = {
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                globals = {
+                    'vim',
+                    'require'
+                },
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
 })
 
 require("oil").setup({
@@ -107,7 +106,7 @@ require("oil").setup({
         border = "rounded",
     },
     keymaps = {
-        ["q"]    = "actions.close",
+        ["q"] = "actions.close",
     }
 })
 

@@ -10,8 +10,12 @@ keymap("n", "<C-d>", "<C-d>zz")
 keymap("n", "<C-u>", "<C-u>zz")
 
 --- save and quit
-keymap("n", "<Leader>w", "<cmd>w!<CR>", s)
-keymap("n", "<Leader>q", "<cmd>q<CR>", s)
+vim.keymap.set("n", "<Leader>w", function()
+    vim.lsp.buf.format({ async = false }) -- run formatter
+    vim.cmd("w!")                         -- save file
+end, { desc = "Format + Save" })
+keymap("n", "<Leader>W", "<cmd>w!<CR>", s)
+keymap("n", "<Leader>q", "<cmd>bd<CR>", s)
 
 -- tabs
 keymap("n", "<Leader>te", "<cmd>tabnew<CR>", s)
@@ -37,8 +41,8 @@ keymap("n", "<leader>dn", "<cmd>lua vim.diagnostic.jump({count = 1})<CR>", ns)
 keymap("n", "<leader>dp", "<cmd>lua vim.diagnostic.jump({count = -1})<CR>", ns)
 
 vim.keymap.set("n", "<leader>e", function()
-  require("oil").open_float() 
-  end)
+    require("oil").open_float()
+end)
 
 keymap("n", "<leader>ps", "<cmd>lua vim.pack.update()<CR>")
 keymap("n", "<leader>gs", "<cmd>Git<CR>", ns)
@@ -67,10 +71,3 @@ keymap("n", "<leader>fr", function()
         },
     })
 end)
-
-
-
-
-
-
-
