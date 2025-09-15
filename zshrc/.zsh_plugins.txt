@@ -10,4 +10,4 @@ zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-completions
 
 # Theme (Powerlevel10k)
-romkatv/powerlevel10k
+#romkatv/powerlevel10k

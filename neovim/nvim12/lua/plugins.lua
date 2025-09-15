@@ -1,11 +1,54 @@
 vim.g.mapleader = " "
 
 vim.pack.add({
+    { src = 'https://github.com/neovim/nvim-lspconfig' },
     { src = "https://github.com/mason-org/mason.nvim" },
+    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+    { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/saghen/blink.cmp",            version = vim.version.range("^1") },
-    { src = "https://github.com/lervag/vimtex" },
     { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/lewis6991/gitsigns.nvim" },
+
+    { src = "https://github.com/m4xshen/hardtime.nvim" },
+    { src = "https://github.com/tris203/precognition.nvim" },
+})
+
+require("hardtime").setup()
+require("precognition").toggle()
+
+require('mason').setup()
+require("mason-lspconfig").setup()
+require("mason-tool-installer").setup({
+    ensure_installed = {
+        "lua_ls"
+    }
+})
+
+require("gitsigns").setup({ 
+    current_line_blame = true 
+})
+
+vim.lsp.config('lua_ls', {
+	settings = {
+		Lua = {
+			runtime = {
+				version = 'LuaJIT',
+			},
+			diagnostics = {
+				globals = {
+					'vim',
+					'require'
+				},
+			},
+			workspace = {
+				library = vim.api.nvim_get_runtime_file("", true),
+			},
+			telemetry = {
+				enable = false,
+			},
+		},
+	},
 })
 
 require("oil").setup({
@@ -22,7 +65,7 @@ require("oil").setup({
 
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
 
-require('mason').setup({})
+
 require('blink.cmp').setup({
     fuzzy = { implementation = 'prefer_rust_with_warning' },
     signature = { enabled = true },

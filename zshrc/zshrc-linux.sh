@@ -8,8 +8,8 @@ export TERM=xterm-256color
 
 alias ls='ls --color=auto'
 
-echo "Updating packages, please wait (wont upgrade)..."
-sudo apt-get update >/dev/null 2>&1
+#echo "Updating packages, please wait (wont upgrade)..."
+#sudo apt-get update >/dev/null 2>&1
 
 # Initialize Starship, if installed, otherwise install it
 # Extract the last digit of $HOST

@@ -7,12 +7,6 @@ fi
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote load ~/github/dotfiles-latest/zshrc/.zsh_plugins.txt
 
-# History
-setopt histignorealldups sharehistory
-HISTSIZE=1000
-SAVEHIST=1000
-HISTFILE=~/.zsh_history
-
 # Keybindings
 bindkey -e
 
@@ -23,10 +17,6 @@ export PATH=$HOME/.local/share/bob/nvim-bin:$HOME/.local/share/mise/shims:$HOME/
 eval "$(mise activate zsh)"
 # path=("$HOME/.local/share/mise/shims" $path)
 # export PATH
-
-# Powerlevel10k config (if exists)
-[[ -r ~/.config/dotfiles/zsh/p10k.zsh ]] && source ~/.config/dotfiles/zsh/p10k.zsh
-
 
 fpath+=~/.zfunc
 
