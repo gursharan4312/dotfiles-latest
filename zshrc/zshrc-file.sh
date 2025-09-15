@@ -10,26 +10,26 @@
 # now changes have to be explicitly pulled with the alias 'pulldeez' that pulls
 # the changes and then sources the zshrc file
 
-# source ~/github/dotfiles-latest/zshrc/zshrc-common.sh
+source ~/github/dotfiles-latest/zshrc/zshrc-common.sh
 source ~/github/dotfiles-latest/zshrc/dell.sh
 
 # Detect OS
-# case "$(uname -s)" in
-# Darwin)
-#   OS='Mac'
-#   ;;
-# Linux)
-#   OS='Linux'
-#   ;;
-# *)
-#   OS='Other'
-#   ;;
-# esac
+case "$(uname -s)" in
+Darwin)
+  OS='Mac'
+  ;;
+Linux)
+  OS='Linux'
+  ;;
+*)
+  OS='Other'
+  ;;
+esac
 
-# # macOS-specific configurations
-# if [ "$OS" = 'Mac' ]; then
-#   source ~/github/dotfiles-latest/zshrc/zshrc-macos.sh
-# # Linux (Debian)-specific configurations
-# elif [ "$OS" = 'Linux' ]; then
-#   source ~/github/dotfiles-latest/zshrc/zshrc-linux.sh
-# fi
+# macOS-specific configurations
+if [ "$OS" = 'Mac' ]; then
+  source ~/github/dotfiles-latest/zshrc/zshrc-macos.sh
+# Linux (Debian)-specific configurations
+elif [ "$OS" = 'Linux' ]; then
+  source ~/github/dotfiles-latest/zshrc/zshrc-linux.sh
+fi
