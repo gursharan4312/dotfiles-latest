@@ -25,7 +25,7 @@ opt.winborder = "rounded"
 opt.hlsearch = false
 opt.pumblend = 10
 opt.winblend = 10
-
+opt.clipboard = "unnamedplus"
 
 vim.cmd.filetype("plugin indent on")
 -- vim.cmd.colorscheme("techbase")

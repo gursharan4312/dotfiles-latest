@@ -9,10 +9,15 @@ vim.pack.add({
     { src = "https://github.com/saghen/blink.cmp",            version = vim.version.range("^1") },
     { src = "https://github.com/stevearc/oil.nvim" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
+    { src = "https://github.com/folke/snacks.nvim" },
+
 
     { src = "https://github.com/m4xshen/hardtime.nvim" },
     { src = "https://github.com/tris203/precognition.nvim" },
+
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter", branch = "main", build = ":TSUpdate" },
 })
+
 
 require("hardtime").setup()
 require("precognition").toggle()
@@ -25,8 +30,51 @@ require("mason-tool-installer").setup({
     }
 })
 
+require("nvim-treesitter.configs").setup({
+  ensure_installed = {
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "javascript",
+    "html",
+    "css",
+    "json",
+    "python",
+    "c"
+  },
+
+  sync_install = false,   -- install parsers async
+  auto_install = true,    -- auto install missing parsers on buffer open
+
+  highlight = {
+    enable = true,        -- enable tree-sitter based highlighting
+    additional_vim_regex_highlighting = false,
+  },
+
+  indent = {
+    enable = true,        -- experimental tree-sitter indentation
+  },
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '<filetype>' },
+  callback = function() vim.treesitter.start() end,
+})
+
 require("gitsigns").setup({ 
     current_line_blame = true 
+})
+
+require("snacks").setup({
+    bigfile = { enable = true },
+    indent = { enable = true },
+    quickfile = { enabled = true },
+    notifier = { enabled = true },
+    scroll = { enabled = true },
+    words = { enabled = true },
+    input = { enabled = true },
+    lazygit = { enabled = true },
 })
 
 vim.lsp.config('lua_ls', {
@@ -64,28 +112,10 @@ require("oil").setup({
 })
 
 vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin:" .. vim.env.PATH
-
-
 require('blink.cmp').setup({
     fuzzy = { implementation = 'prefer_rust_with_warning' },
     signature = { enabled = true },
-    keymap = {
-        preset = "default",
-        ["<C-space>"] = {},
-        ["<C-p>"] = {},
-        ["<Tab>"] = {},
-        ["<S-Tab>"] = {},
-        ["<C-y>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-n>"] = { "select_and_accept" },
-        ["<C-k>"] = { "select_prev", "fallback" },
-        ["<C-j>"] = { "select_next", "fallback" },
-        ["<C-b>"] = { "scroll_documentation_down", "fallback" },
-        ["<C-f>"] = { "scroll_documentation_up", "fallback" },
-        ["<C-l>"] = { "snippet_forward", "fallback" },
-        ["<C-h>"] = { "snippet_backward", "fallback" },
-        -- ["<C-e>"] = { "hide" },
-    },
-
+    keymap = { preset = 'default' },
     appearance = {
         use_nvim_cmp_as_default = true,
         nerd_font_variant = "normal",
@@ -104,7 +134,6 @@ require('blink.cmp').setup({
             ['<CR>'] = { 'accept_and_enter', 'fallback' },
         },
     },
-
     sources = { default = { "lsp" } }
 })
 
