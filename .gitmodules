@@ -1,0 +1,3 @@
+[submodule "neovim/astrovim5"]
+	path = neovim/astrovim5
+	url = git@github.com:gursharan4312/astrovim5.git
