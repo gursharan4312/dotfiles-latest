@@ -10,7 +10,41 @@ source "$HOME/github/dotfiles-latest/colorscheme/active/active-colorscheme.sh"
 # #############################################################################
 
 # Tmux prefix key
-set -g prefix C-b
+# set -g prefix C-b
+unbind C-b
+set -g prefix C-Space
+bind C-Space send-prefix
+
+# Vim style pane selection
+bind h select-pane -L
+bind j select-pane -D 
+bind k select-pane -U
+bind l select-pane -R
+
+# Start windows and panes at 1, not 0
+set -g base-index 1
+set -g pane-base-index 1
+set-window-option -g pane-base-index 1
+set-option -g renumber-windows on
+
+# Use Alt-arrow keys without prefix key to switch panes
+bind -n M-Left select-pane -L
+bind -n M-Right select-pane -R
+bind -n M-Up select-pane -U
+bind -n M-Down select-pane -D
+
+# Shift arrow to switch windows
+bind -n S-Left  previous-window
+bind -n S-Right next-window
+
+# Shift Alt vim keys to switch windows
+bind -n M-H previous-window
+bind -n M-L next-window
+
+bind \\ split-window -h
+bind - split-window -v
+unbind '"'
+unbind %
 
 # "xterm-256color" in alacritty and "screen-256color" in tmux doesnt have paste issues in neovim
 # "checkhealth" command in neovim shows no color warnings
@@ -172,8 +206,8 @@ bind M-S display-popup -E "\
     xargs -I {} tmux kill-session -t {}"
 
 # Create vertical split
-unbind '|'
-bind '|' split-window -h
+unbind '\'
+bind '\' split-window -h
 
 # Create horizontal split
 unbind '-'
@@ -404,8 +438,6 @@ bind M-E command-prompt -p "Command:" \
 # Increase scroll history
 set-option -g history-limit 10000
 
-# New windows normally start at 0, but I want them to start at 1 instead
-set -g base-index 1
 
 # With this set to off
 # when you close the last window in a session, tmux will keep the session
@@ -467,6 +499,7 @@ set -g status-position top
 # Tmux Plugin Manager (tpm), to install it, clone the repo below
 # git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-yank'
 
 ##############################################################################
 # Themes section, only enable 1
