@@ -593,4 +593,5 @@ set -g @plugin 'christoomey/vim-tmux-navigator'
 
 # Initialize TMUX plugin manager
 # (keep this line at the very bottom of tmux.conf)
-run '~/.tmux/plugins/tpm/tpm'
+#run '~/.tmux/plugins/tpm/tpm'
+run '/opt/homebrew/opt/tpm/share/tpm/tpm'

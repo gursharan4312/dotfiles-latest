@@ -10,13 +10,27 @@ antidote load ~/github/dotfiles-latest/zshrc/.zsh_plugins.txt
 # Keybindings
 bindkey -e
 
+# Disable theme since we are using starship
+#ZSH_THEME=""
+
+# Skip insecure directory permissions check to speed up start time
+ZSH_DISABLE_COMPFIX="true"
+
+# Disable automatic text highlighting
+# https://github.com/zsh-users/zsh-syntax-highlighting/issues/349
+zle_highlight+=(paste:none)
+
+# Zsh autosuggestion highlighting - grey
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+
 # PATH
 export PATH=$HOME/.local/share/bob/nvim-bin:$HOME/.local/share/mise/shims:$HOME/.local/bin:/usr/local/go/bin:/opt/nvim-linux-x86_64/bin:/snap/bin:$PATH
 
 # mise (runtime manager)
 eval "$(mise activate zsh)"
-# path=("$HOME/.local/share/mise/shims" $path)
-# export PATH
+
+export STARSHIP_CONFIG=$HOME/github/dotfiles-latest/starship-config/starship1.toml
+eval "$(starship init zsh)"
 
 fpath+=~/.zfunc
 

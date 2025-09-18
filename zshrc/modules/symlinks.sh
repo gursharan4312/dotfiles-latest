@@ -83,6 +83,7 @@ create_symlink ~/github/dotfiles-latest/.prettierrc.yaml ~/.prettierrc.yaml
 create_symlink ~/github/dotfiles-latest/ubersicht/.simplebarrc ~/.simplebarrc
 create_symlink ~/github/dotfiles-latest/eligere/.eligere.json ~/.eligere.json
 create_symlink ~/github/dotfiles-latest/eligere/eligere.toml ~/.config/eligere/.eligere.toml
+create_symlink ~/github/dotfiles-latest/brew/Brewfile ~/Brewfile
 if command -v code &>/dev/null; then
   create_symlink ~/github/dotfiles-latest/vscode/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
 fi
@@ -97,7 +98,7 @@ create_symlink ~/github/dotfiles-latest/neovim/nvim12/ ~/.config/nvim12
 create_symlink ~/github/dotfiles-latest/neovim/astrovim5/ ~/.config/astrovim5
 create_symlink ~/github/dotfiles-latest/neovim/quarto-nvim-kickstarter/ ~/.config/quarto-nvim-kickstarter
 create_symlink ~/github/dotfiles-latest/neovim/kickstart.nvim/ ~/.config/kickstart.nvim
-create_symlink ~/github/dotfiles-latest/ /lazyvim/ ~/.config/lazyvim
+create_symlink ~/github/dotfiles-latest/neovim/lazyvim/ ~/.config/lazyvim
 create_symlink ~/github/dotfiles-latest/hammerspoon/ ~/.hammerspoon
 create_symlink ~/github/dotfiles-latest/karabiner/mxstbr/ ~/.config/karabiner
 create_symlink ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/ ~/.config/sketchybar
