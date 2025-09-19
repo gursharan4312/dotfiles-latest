@@ -186,5 +186,6 @@
     }
   ],
   "git.autofetch": true,
-  "workbench.colorTheme": "Linkarzu Dark Eldritch"
+  "workbench.colorTheme": "Linkarzu Dark Eldritch",
+  "redhat.telemetry.enabled": false
 }
