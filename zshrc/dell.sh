@@ -34,13 +34,14 @@ eval "$(starship init zsh)"
 
 fpath+=~/.zfunc
 
-alias vim=nvim
-alias push=git push
-alias pull=git pull
-alias gc=git checkout
-alias gcb=git checkout -b
-alias bb=~/brokerbay
-alias app=~/brokerbay/app
-alias bbcli=/home/garry/brokerbay/cli/dist/bbcli
+alias vim="NVIM_APPNAME=astrovim5 nvim"
+alias push="git push"
+alias pull="git pull"
+alias gc="git checkout"
+alias gcb="git checkout -b"
+
+alias bb="cd ~/Desktop/brokerbay"
+alias app="cd ~/Desktop/brokerbay/app"
+alias bbcli="~/Desktop/brokerbay/cli/dist/bbcli"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

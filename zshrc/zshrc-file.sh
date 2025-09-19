@@ -13,6 +13,7 @@
 source ~/github/dotfiles-latest/zshrc/zshrc-common.sh
 source ~/github/dotfiles-latest/zshrc/dell.sh
 
+
 # Detect OS
 case "$(uname -s)" in
 Darwin)
