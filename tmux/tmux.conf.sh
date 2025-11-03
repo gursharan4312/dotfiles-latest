@@ -43,8 +43,16 @@ bind -n S-Right next-window
 bind -n M-H previous-window
 bind -n M-L next-window
 
-bind \\ split-window -h
-bind - split-window -v
+bind c new-window -c "#{pane_current_path}"
+
+# Create vertical split
+unbind '\'
+bind '\' split-window -h -c "#{pane_current_path}"
+
+# Create horizontal split
+unbind '-'
+bind - split-window -v -c "#{pane_current_path}"
+
 unbind '"'
 unbind %
 
@@ -207,13 +215,6 @@ bind M-S display-popup -E "\
     fzf --reverse -m --header=kill-session |\
     xargs -I {} tmux kill-session -t {}"
 
-# Create vertical split
-unbind '\'
-bind '\' split-window -h
-
-# Create horizontal split
-unbind '-'
-bind - split-window -v
 
 # how to navigate across the different panes in a window
 # Notice I'm using vim motions
