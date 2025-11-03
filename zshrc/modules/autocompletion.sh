@@ -3,7 +3,14 @@
 # These have to be on the top, I remember I had issues with some autocompletions if not
 zmodload zsh/complist
 autoload -U compinit
-compinit
+
+# Check if the completion cache exists and is older than 24 hours
+if [ -n "$HOME/.zcompcache" ] && [ -f "$HOME/.zcompcache" ] && [ "$(find "$HOME/.zcompcache" -mtime +1 -print)" = "$HOME/.zcompcache" ]; then
+  compinit
+else
+  compinit -C
+fi
+
 _comp_options+=(globdots) # With hidden files
 # setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
 setopt AUTO_LIST        # Automatically list choices on ambiguous completion.

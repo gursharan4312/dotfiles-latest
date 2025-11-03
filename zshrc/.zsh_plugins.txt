@@ -1,14 +1,7 @@
-# Oh My Zsh plugins
-ohmyzsh/ohmyzsh lib/git
-ohmyzsh/ohmyzsh plugins/docker
-ohmyzsh/ohmyzsh plugins/kubectl
-ohmyzsh/ohmyzsh plugins/colored-man-pages
-
-# Popular Zsh plugins
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/docker
+ohmyzsh/ohmyzsh path:plugins/kubectl
 zsh-users/zsh-autosuggestions
 zsh-users/zsh-syntax-highlighting
 zsh-users/zsh-completions
 jeffreytse/zsh-vi-mode
-
-# Theme (Powerlevel10k)
-#romkatv/powerlevel10k

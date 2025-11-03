@@ -1,3 +1,4 @@
+zmodload zsh/zprof
 source ~/github/dotfiles-latest/zshrc/zshrc-common.sh
 
 # Detect OS
@@ -26,5 +27,3 @@ setopt autocd
 bindkey '\e[A' history-beginning-search-backward
 bindkey '\e[B' history-beginning-search-forward
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"

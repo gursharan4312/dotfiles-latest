@@ -63,9 +63,6 @@ export PATH=/usr/local/go/bin:$PATH
 export ANDROID_HOME=$HOME/Library/Android/sdk
 export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools
 
-export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
 fpath+=~/.zfunc
 
 export STARSHIP_CONFIG=$HOME/github/dotfiles-latest/starship-config/active-config.toml

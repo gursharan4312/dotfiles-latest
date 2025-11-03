@@ -9,7 +9,8 @@ export PATH=$HOME/.local/share/bob/nvim-bin:$HOME/.local/share/mise/shims:$HOME/
 
 # Antidote plugin manager
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-antidote load ~/github/dotfiles-latest/zshrc/.zsh_plugins.txt
+antidote bundle <~/github/dotfiles-latest/zshrc/.zsh_plugins.txt > ~/.zsh_plugins.zsh
+source ~/.zsh_plugins.zsh
 
 # Keybindings
 bindkey -e
@@ -25,7 +26,10 @@ zle_highlight+=(paste:none)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
 
 # mise (runtime manager)
-eval "$(mise activate zsh)"
+function mise() {
+  eval "$(command mise activate zsh)"
+  mise "$@"
+}
 
 # Starship
 eval "$(starship init zsh)"
