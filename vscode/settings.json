@@ -187,5 +187,6 @@
   ],
   "git.autofetch": true,
   "workbench.colorTheme": "Linkarzu Dark Eldritch",
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "git.confirmSync": false
 }

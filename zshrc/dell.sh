@@ -32,6 +32,13 @@ eval "$(mise activate zsh)"
 export STARSHIP_CONFIG=$HOME/github/dotfiles-latest/starship-config/starship1.toml
 eval "$(starship init zsh)"
 
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools
+
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+
 fpath+=~/.zfunc
 
 alias vim="NVIM_APPNAME=astrovim5 nvim"
@@ -40,8 +47,18 @@ alias pull="git pull"
 alias gc="git checkout"
 alias gcb="git checkout -b"
 
-alias bb="cd ~/Desktop/brokerbay"
-alias app="cd ~/Desktop/brokerbay/app"
+BB=~/Desktop/brokerbay
+
+alias bb="cd $BB"
+alias app="cd $BB/app"
+alias mobile="cd $BB/mobile"
+alias rets="cd $BB/rets2"
+alias script="cd $BB/scripts"
+alias auth="cd $BB/auth-server"
 alias bbcli="~/Desktop/brokerbay/cli/dist/bbcli"
+
+export TMPDIR=$HOME/.tmp
+export TMP=$HOME/.tmp
+export TEMP=$HOME/.tmp
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

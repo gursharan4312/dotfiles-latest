@@ -110,6 +110,7 @@ create_symlink ~/github/dotfiles-latest/btop/ ~/.config/btop
 create_symlink ~/github/dotfiles-latest/fastfetch/ ~/.config/fastfetch
 create_symlink ~/github/dotfiles-latest/sesh ~/.config/sesh
 create_symlink ~/github/dotfiles-latest/aerospace ~/.config/aerospace
+create_symlink ~/github/dotfiles-latest/mise ~/.config/mise
 
 # # This is on the other repo where I keep my ssh config files
 # I commented this as I don't have access to this repo in all the hosts

@@ -1,0 +1,10 @@
+[settings]
+idiomatic_version_file_enable_tools = ["node"]
+
+[tools]
+go = "latest"
+java = "21"
+julia = "latest"
+node = "22.15.1"
+rust = "latest"
+
