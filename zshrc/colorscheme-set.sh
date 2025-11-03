@@ -42,6 +42,11 @@ else
   fi
 fi
 
+# If the colorscheme has not been updated, exit
+if [ "$UPDATED" = false ]; then
+  exit 0
+fi
+
 generate_kitty_config() {
   kitty_conf_file="$HOME/github/dotfiles-latest/kitty/active-theme.conf"
 
@@ -237,15 +242,15 @@ generate_starship_config() {
   # Generate the Starship configuration file
   cat >"$starship_conf_file" <<EOF
 # This will show the time on a 2nd line
-# Add a "\\" at the end of an item, if you want the next item to show on the same line
+# Add a \\ at the end of an item, if you want the next item to show on the same line
 format = """
-\$username\\
-\$hostname\\
-\$time\\
-\$all\\
-\$directory
-\$kubernetes
-\$character
+$username\
+$hostname\
+$time\
+$all\
+$directory
+$kubernetes
+$character
 """
 
 [character]
@@ -262,7 +267,7 @@ disabled = true
 [time]
 style = '${linkarzu_color04} bold'
 disabled = false
-format = '[\[\$time\]](\$style) '
+format = '[\$time](\$style) '
 # https://docs.rs/chrono/0.4.7/chrono/format/strftime/index.html
 # %T	00:34:60	Hour-minute-second format. Same to %H:%M:%S.
 # time_format = '%y/%m/%d %T'
@@ -273,11 +278,11 @@ time_format = '%y/%m/%d'
 [kubernetes]
 disabled = false
 # context = user@cluster
-# format = '[\$user@\$cluster \(\$namespace\)](${linkarzu_color05}) '
-# format = '[\$cluster \(\$namespace\)](${linkarzu_color05}) '
+# format = '[\$user@\$cluster (\$namespace)](${linkarzu_color05}) '
+# format = '[\$cluster (\$namespace)](${linkarzu_color05}) '
 # Apply separate colors for cluster and namespace
 format = '[\$cluster](${linkarzu_color05} bold) [\$namespace](${linkarzu_color02} bold) '
-# format = 'on [⛵ (\$user on )(\$cluster in )\$context \(\$namespace\)](dimmed green) '
+# format = 'on [⛵ (\$user on )(\$cluster in )\$context (\$namespace)](dimmed green) '
 # Only dirs that have this file inside will show the kubernetes prompt
 # detect_files = ['900-detectkubernetes.sh']
 # detect_env_vars = ['STAR_USE_KUBE']
@@ -308,6 +313,34 @@ EOF
   echo "Starship configuration updated at '$starship_conf_file'."
 }
 
+apply_macos_settings() {
+  # Set sketchybar colors
+  sketchybar --reload
+
+  # Generate the ghostty config file
+  generate_ghostty_config
+  osascript $HOME/github/dotfiles-latest/ghostty/reload-config.scpt
+
+  # Generate the Kitty configuration file
+  generate_kitty_config
+  # This reloads kitty config without closing and re-opening
+  kill -SIGUSR1 "$(pgrep -x kitty)"
+
+  # Set the wallpaper
+  if [ -z "$wallpaper" ]; then
+    wallpaper="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Images/wallpapers/official/skyrim-dragon-4.webp"
+  fi
+  osascript -e '
+  tell application "System Events"
+      repeat with d in desktops
+          set picture of d to "'$wallpaper'"
+      end repeat
+  end tell'
+
+  # Also restart yabai for my skitty-notes colors
+  ~/github/dotfiles-latest/yabai/yabai_restart.sh
+}
+
 # If there's an update, replace the active colorscheme and perform necessary actions
 if [ "$UPDATED" = true ]; then
   echo "Updating active colorscheme to '$colorscheme_profile'."
@@ -327,33 +360,10 @@ if [ "$UPDATED" = true ]; then
   tmux source-file ~/.tmux.conf
   echo "Tmux colors set and tmux configuration reloaded."
 
-  # Set sketchybar colors
-  sketchybar --reload
-
   generate_starship_config
-
-  # Generate the ghostty config file
-  generate_ghostty_config
-  osascript $HOME/github/dotfiles-latest/ghostty/reload-config.scpt
-
   generate_btop_config
 
-  # Generate the Kitty configuration file
-  generate_kitty_config
-  # This reloads kitty config without closing and re-opening
-  kill -SIGUSR1 "$(pgrep -x kitty)"
-
-  # Set the wallpaper
-  if [ -z "$wallpaper" ]; then
-    wallpaper="$HOME/Library/Mobile Documents/com~apple~CloudDocs/Images/wallpapers/official/skyrim-dragon-4.webp"
+  if [[ "$(uname)" == "Darwin" ]]; then
+    apply_macos_settings
   fi
-  osascript -e '
-  tell application "System Events"
-      repeat with d in desktops
-          set picture of d to "'"$wallpaper"'"
-      end repeat
-  end tell'
-
-  # Also restart yabai for my skitty-notes colors
-  ~/github/dotfiles-latest/yabai/yabai_restart.sh
 fi

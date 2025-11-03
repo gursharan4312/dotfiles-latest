@@ -1,25 +1,13 @@
-# ~/.config is used by neovim, alacritty and karabiner
+# ~/.config is used by neovim
 mkdir -p ~/.config
-# Alacritty is inside its own dir
-mkdir -p ~/.config/alacritty
-# Kitty is inside its own dir
-mkdir -p ~/.config/kitty/
-mkdir -p ~/.config/wezterm/
-mkdir -p ~/.config/ghostty
 # Creating obsidian directory
 # Even if you don't use obsidian, don't remove this dir to avoid warnings
-mkdir -p ~/github/obsidian_main
-mkdir -p ~/.config/neovide
-mkdir -p ~/.config/rio
-mkdir -p ~/.config/yazi
-mkdir -p ~/.config/btop
-mkdir -p ~/.config/fastfetch
-mkdir -p ~/.config/sesh
-mkdir -p ~/.config/eligere
+mkdir -p ~/.config/ghostty
 mkdir -p ~/.config/aerospace
+mkdir -p ~/.config/mise
 
 # Create the symlinks I normally use
-# ~/.config dir holds nvim, neofetch, alacritty configs
+# ~/.config dir holds nvim configs
 # If the dir/file that the symlink points to doesnt exist, it will error out, so I direct them to dev null
 # This will update the symlink even if its pointing to another file
 # If the file exists, it will create a backup in the same dir
@@ -71,18 +59,10 @@ create_symlink() {
 
 # Creating symlinks for files
 create_symlink ~/github/dotfiles-latest/vimrc/vimrc-file ~/.vimrc
-create_symlink ~/github/dotfiles-latest/vimrc/vimrc-file ~/github/obsidian_main/.obsidian.vimrc
 create_symlink ~/github/dotfiles-latest/zshrc/zshrc-file.sh ~/.zshrc
 create_symlink ~/github/dotfiles-latest/bashrc/bashrc-file.sh ~/.bashrc
 create_symlink ~/github/dotfiles-latest/tmux/tmux.conf.sh ~/.tmux.conf
-create_symlink ~/github/dotfiles-latest/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml
-create_symlink ~/github/dotfiles-latest/kitty/kitty.conf ~/.config/kitty/kitty.conf
-create_symlink ~/github/dotfiles-latest/wezterm/wezterm.lua ~/.config/wezterm/wezterm.lua
-create_symlink ~/github/dotfiles-latest/yabai/yabairc ~/.yabairc
 create_symlink ~/github/dotfiles-latest/.prettierrc.yaml ~/.prettierrc.yaml
-create_symlink ~/github/dotfiles-latest/ubersicht/.simplebarrc ~/.simplebarrc
-create_symlink ~/github/dotfiles-latest/eligere/.eligere.json ~/.eligere.json
-create_symlink ~/github/dotfiles-latest/eligere/eligere.toml ~/.config/eligere/.eligere.toml
 create_symlink ~/github/dotfiles-latest/brew/Brewfile ~/Brewfile
 if command -v code &>/dev/null; then
   create_symlink ~/github/dotfiles-latest/vscode/settings.json "$HOME/Library/Application Support/Code/User/settings.json"
@@ -90,7 +70,6 @@ fi
 if command -v lazygit &>/dev/null; then
   create_symlink ~/github/dotfiles-latest/lazygit/config.yml "$HOME/Library/Application Support/lazygit/config.yml"
 fi
-# create_symlink ~/github/dotfiles-latest/mouseless/config.yaml "$HOME/Library/Containers/net.sonuscape.mouseless/Data/.mouseless/configs/config.yaml"
 
 # Creating symlinks for directories
 create_symlink ~/github/dotfiles-latest/neovim/neobean/ ~/.config/neobean
@@ -99,32 +78,6 @@ create_symlink ~/github/dotfiles-latest/neovim/astrovim5/ ~/.config/astrovim5
 create_symlink ~/github/dotfiles-latest/neovim/quarto-nvim-kickstarter/ ~/.config/quarto-nvim-kickstarter
 create_symlink ~/github/dotfiles-latest/neovim/kickstart.nvim/ ~/.config/kickstart.nvim
 create_symlink ~/github/dotfiles-latest/neovim/lazyvim/ ~/.config/lazyvim
-create_symlink ~/github/dotfiles-latest/hammerspoon/ ~/.hammerspoon
-create_symlink ~/github/dotfiles-latest/karabiner/mxstbr/ ~/.config/karabiner
-create_symlink ~/github/dotfiles-latest/sketchybar/felixkratz-linkarzu/ ~/.config/sketchybar
-create_symlink ~/github/dotfiles-latest/neovide/ ~/.config/neovide
 create_symlink ~/github/dotfiles-latest/ghostty/ ~/.config/ghostty
-create_symlink ~/github/dotfiles-latest/rio/ ~/.config/rio
-create_symlink ~/github/dotfiles-latest/yazi/ ~/.config/yazi
-create_symlink ~/github/dotfiles-latest/btop/ ~/.config/btop
-create_symlink ~/github/dotfiles-latest/fastfetch/ ~/.config/fastfetch
-create_symlink ~/github/dotfiles-latest/sesh ~/.config/sesh
 create_symlink ~/github/dotfiles-latest/aerospace ~/.config/aerospace
 create_symlink ~/github/dotfiles-latest/mise ~/.config/mise
-
-# # This is on the other repo where I keep my ssh config files
-# I commented this as I don't have access to this repo in all the hosts
-# ln -snf ~/github/dotfiles/sshconfig-pers ~/.ssh/config 2>&1 >/dev/null
-
-# # I'm keeping the old manual commands here
-# ln -snf ~/github/dotfiles-latest/zshrc/zshrc-file.sh ~/.zshrc >/dev/null 2>&1
-# ln -snf ~/github/dotfiles-latest/vimrc/vimrc-file ~/.vimrc >/dev/null 2>&1
-# ln -snf ~/github/dotfiles-latest/vimrc/vimrc-file ~/github/obsidian_main/.obsidian.vimrc >/dev/null 2>&1
-# ln -snf ~/github/dotfiles-latest/tmux/tmux.conf.sh ~/.tmux.conf >/dev/null 2>&1
-# ln -snf ~/github/dotfiles-latest/alacritty/alacritty.toml ~/.config/alacritty/alacritty.toml >/dev/null 2>&1
-# ln -snf ~/github/dotfiles-latest/yabai/yabairc ~/.yabairc >/dev/null 2>&1
-#
-# # Below are symlinks that point to directories
-# ln -snf ~/github/dotfiles-latest/neovim/neobean ~/.config/nvim >/dev/null 2>&1
-# ln -snf ~/github/dotfiles-latest/hammerspoon ~/.hammerspoon >/dev/null 2>&1
-# ln -snf ~/github/dotfiles-latest/karabiner/mxstbr ~/.config/karabiner >/dev/null 2>&1

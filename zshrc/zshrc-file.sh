@@ -1,18 +1,4 @@
-# Filename: ~/github/dotfiles-latest/zshrc/zshrc-file.sh
-
-# #############################################################################
-# Do not delete the `UNIQUE_ID` line below, I use it to backup original files
-# so they're not lost when my symlinks are applied
-# UNIQUE_ID=do_not_delete_this_line
-# #############################################################################
-
-# The AUTO-PULL SECTION has been removed
-# now changes have to be explicitly pulled with the alias 'pulldeez' that pulls
-# the changes and then sources the zshrc file
-
 source ~/github/dotfiles-latest/zshrc/zshrc-common.sh
-source ~/github/dotfiles-latest/zshrc/dell.sh
-
 
 # Detect OS
 case "$(uname -s)" in
@@ -34,7 +20,6 @@ if [ "$OS" = 'Mac' ]; then
 elif [ "$OS" = 'Linux' ]; then
   source ~/github/dotfiles-latest/zshrc/zshrc-linux.sh
 fi
-
 
 setopt autocd
 
