@@ -105,13 +105,14 @@ if command -v kubectl &>/dev/null; then
 fi
 
 # mise (lazy loading for faster startup)
-if command -v mise &>/dev/null; then
-    function mise() {
-        unfunction mise
-        eval "$(command mise activate zsh)"
-        mise "$@"
-    }
-fi
+eval "$(command mise activate zsh)"
+# if command -v mise &>/dev/null; then
+#     function mise() {
+#         unfunction mise
+#         eval "$(command mise activate zsh)"
+#         mise "$@"
+#     }
+# fi
 
 # =============================================================================
 # Tmux Auto-Attach (optional)
