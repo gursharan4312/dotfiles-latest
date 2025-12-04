@@ -8,6 +8,13 @@ source "$DOTFILES_DIR/modules/history.sh"
 # PATH
 export PATH=$HOME/.local/share/bob/nvim-bin:$HOME/.local/bin:$PATH
 
+# Define ZSH_CACHE_DIR for oh-my-zsh plugins
+export ZSH_CACHE_DIR="$HOME/.cache/zsh"
+# Ensure the directory exists to prevent errors
+if [[ ! -d "$ZSH_CACHE_DIR/completions" ]]; then
+  mkdir -p "$ZSH_CACHE_DIR/completions"
+fi
+
 # Antidote plugin manager
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
 antidote bundle <~/github/dotfiles-latest/zsh/.zsh_plugins.txt > ~/.zsh_plugins.zsh
