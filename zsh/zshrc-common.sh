@@ -31,6 +31,7 @@ function mise() {
   eval "$(command mise activate zsh)"
   mise "$@"
 }
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 # Starship
 eval "$(starship init zsh)"
