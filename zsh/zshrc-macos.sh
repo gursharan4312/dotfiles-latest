@@ -1,6 +1,6 @@
 # Colorscheme configuration
 # This is set in ~/github/dotfiles-latest/colorscheme/colorscheme-vars.sh
-~/github/dotfiles-latest/zshrc/colorscheme-set.sh "$colorscheme_profile"
+~/github/dotfiles-latest/zsh/colorscheme-set.sh "$colorscheme_profile"
 
 # Brew autocompletion settings
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh

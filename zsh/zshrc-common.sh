@@ -1,15 +1,16 @@
-source ~/github/dotfiles-latest/zshrc/modules/colors.sh
-source ~/github/dotfiles-latest/colorscheme/colorscheme-vars.sh
-source ~/github/dotfiles-latest/zshrc/modules/aliases.sh
-source ~/github/dotfiles-latest/zshrc/modules/autocompletion.sh
-source ~/github/dotfiles-latest/zshrc/modules/history.sh
+DOTFILES_DIR="$(dirname ${(%):-%N})"
+source "$DOTFILES_DIR/modules/colors.sh"
+# source ~/github/dotfiles-latest/colorscheme/colorscheme-vars.sh
+source "$DOTFILES_DIR/modules/aliases.sh"
+source "$DOTFILES_DIR/modules/autocompletion.sh"
+source "$DOTFILES_DIR/modules/history.sh"
 
 # PATH
-export PATH=$HOME/.local/share/bob/nvim-bin:$HOME/.local/share/mise/shims:$HOME/.local/bin:$PATH
+export PATH=$HOME/.local/share/bob/nvim-bin:$HOME/.local/bin:$PATH
 
 # Antidote plugin manager
 source ${ZDOTDIR:-~}/.antidote/antidote.zsh
-antidote bundle <~/github/dotfiles-latest/zshrc/.zsh_plugins.txt > ~/.zsh_plugins.zsh
+antidote bundle <~/github/dotfiles-latest/zsh/.zsh_plugins.txt > ~/.zsh_plugins.zsh
 source ~/.zsh_plugins.zsh
 
 # Keybindings
