@@ -6,7 +6,8 @@ DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BACKUP_SUFFIX=".bak.$(date +%s)"
 STOW_FOLDERS=$@
 if [ -z "$STOW_FOLDERS" ]; then
-    STOW_FOLDERS=$(find . -maxdepth 1 -not -path '*/.*' -type d -printf '%P\n')
+    # Use POSIX-compatible find (works on both macOS and Linux)
+    STOW_FOLDERS=$(find . -maxdepth 1 -not -path '*/.*' -type d | sed 's|^\./||' | grep -v '^\.$')
 fi
 
 # Function to check and backup files/folders
