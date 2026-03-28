@@ -1,0 +1,25 @@
+# Linkarzu — the original custom dark theme
+linkarzu_color01="#fca6ff"   # magenta/pink
+linkarzu_color02="#37f499"   # green
+linkarzu_color03="#04d1f9"   # cyan
+linkarzu_color04="#987afb"   # blue-purple
+linkarzu_color05="#9ad900"   # yellow-green
+linkarzu_color06="#00b3cc"   # mid cyan
+linkarzu_color07="#c5e6f0"   # light blue
+linkarzu_color08="#1e2533"   # dark surface  (active window bg in tmux)
+linkarzu_color09="#3d4462"   # dim overlay   (inactive pane border)
+linkarzu_color10="#0d1116"   # background
+linkarzu_color11="#f16c75"   # red
+linkarzu_color12="#e58f2a"   # orange
+linkarzu_color13="#f94dff"   # hot pink      (selection highlight)
+linkarzu_color14="#ffffff"   # foreground
+linkarzu_color15="#c5d0e8"   # dim fg
+linkarzu_color16="#2a3045"   # selection bg
+linkarzu_color17="#161b22"   # darker surface
+linkarzu_color18="#fca6ff"   # pink
+linkarzu_color19="#c94048"   # dark red
+linkarzu_color20="#a3d8f4"   # light cyan
+linkarzu_color21="#8f95b5"   # muted text
+linkarzu_color22="#3d4462"   # dark muted
+linkarzu_color23="#a8b2cc"   # window default text (tmux)
+linkarzu_color24="#f94dff"   # cursor
