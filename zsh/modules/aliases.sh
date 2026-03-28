@@ -1,7 +1,3 @@
-# =============================================================================
-# Shell Aliases
-# =============================================================================
-
 # Neovim with custom config
 alias vim="NVIM_APPNAME=astrovim5 nvim"
 
@@ -24,4 +20,3 @@ if [[ -d "$HOME/Desktop/brokerbay" ]]; then
     alias auth="cd $BB/auth-server"
     alias bbcli="$BB/cli/dist/bbcli"
 fi
-

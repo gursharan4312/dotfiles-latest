@@ -11,7 +11,10 @@ ACTIVE_FILE="$DOTFILES/colorscheme/active/active-colorscheme.sh"
 
 # ── Pick a theme ─────────────────────────────────────────────────────────────
 
-mapfile -t themes < <(ls "$THEMES_DIR"/*.sh 2>/dev/null | xargs -I{} basename {} .sh | sort)
+themes=()
+while IFS= read -r t; do
+    themes+=("$t")
+done < <(ls "$THEMES_DIR"/*.sh 2>/dev/null | xargs -I{} basename {} .sh | sort)
 
 if [[ ${#themes[@]} -eq 0 ]]; then
     echo "No themes found in $THEMES_DIR"; exit 1

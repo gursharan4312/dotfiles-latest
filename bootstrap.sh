@@ -52,7 +52,7 @@ ok "Homebrew ready at $(brew --prefix)"
 # ── 3. Brewfile ───────────────────────────────────────────────────────────────
 
 step "Installing packages (brew/Brewfile)"
-brew bundle --file="$DOTFILES/brew/Brewfile" --no-lock
+brew bundle --file="$DOTFILES/brew/Brewfile"
 ok "Packages installed"
 
 # ── 4. Default shell → zsh ────────────────────────────────────────────────────
