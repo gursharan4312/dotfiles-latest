@@ -8,4 +8,4 @@
 export PATH="$HOME/.local/bin:$PATH"
 
 # Starship prompt config
-export STARSHIP_CONFIG="$HOME/github/dotfiles-latest/starship-config/active-config.toml"
+export STARSHIP_CONFIG="$HOME/github/dotfiles-latest/starship-config/.config/active-config.toml"

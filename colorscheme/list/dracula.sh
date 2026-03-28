@@ -1,0 +1,25 @@
+# Dracula
+linkarzu_color01="#bd93f9"   # purple
+linkarzu_color02="#50fa7b"   # green
+linkarzu_color03="#8be9fd"   # cyan
+linkarzu_color04="#6272a4"   # blue-gray
+linkarzu_color05="#f1fa8c"   # yellow
+linkarzu_color06="#80ffea"   # bright cyan
+linkarzu_color07="#ff79c6"   # pink
+linkarzu_color08="#6272a4"   # comment     (dimmer surface)
+linkarzu_color09="#44475a"   # selection   (inactive text)
+linkarzu_color10="#282a36"   # background
+linkarzu_color11="#ff5555"   # red
+linkarzu_color12="#ffb86c"   # orange
+linkarzu_color13="#ff6e6e"   # bright red  (warm highlight)
+linkarzu_color14="#f8f8f2"   # foreground
+linkarzu_color15="#e0e0e0"   # fg light
+linkarzu_color16="#44475a"   # current line
+linkarzu_color17="#21222c"   # dark bg
+linkarzu_color18="#ff79c6"   # pink
+linkarzu_color19="#8b0000"   # dark red
+linkarzu_color20="#80ffea"   # bright cyan
+linkarzu_color21="#bfbfbf"   # subtle fg
+linkarzu_color22="#5c6370"   # comment2
+linkarzu_color23="#c0c0c0"   # fg2
+linkarzu_color24="#f8f8f2"   # cursor

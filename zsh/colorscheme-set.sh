@@ -261,9 +261,6 @@ vicmd_symbol = '[❮❮❮❮](${linkarzu_color04} bold)'
 [battery]
 disabled = true
 
-[gcloud]
-disabled = true
-
 [time]
 style = '${linkarzu_color04} bold'
 disabled = false

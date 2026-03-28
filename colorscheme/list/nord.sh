@@ -1,0 +1,25 @@
+# Nord
+linkarzu_color01="#b48ead"   # aurora purple
+linkarzu_color02="#a3be8c"   # aurora green
+linkarzu_color03="#88c0d0"   # frost light blue
+linkarzu_color04="#81a1c1"   # frost blue
+linkarzu_color05="#ebcb8b"   # aurora yellow
+linkarzu_color06="#8fbcbb"   # frost teal
+linkarzu_color07="#5e81ac"   # frost dark blue
+linkarzu_color08="#4c566a"   # polar night 3 (dimmer surface)
+linkarzu_color09="#434c5e"   # polar night 2 (inactive text)
+linkarzu_color10="#2e3440"   # polar night 0 (background)
+linkarzu_color11="#bf616a"   # aurora red
+linkarzu_color12="#d08770"   # aurora orange
+linkarzu_color13="#bf616a"   # dark red      (warm highlight)
+linkarzu_color14="#eceff4"   # snow storm 2  (foreground)
+linkarzu_color15="#e5e9f0"   # snow storm 1
+linkarzu_color16="#4c566a"   # polar night 3
+linkarzu_color17="#3b4252"   # polar night 1
+linkarzu_color18="#b48ead"   # aurora purple (pink slot)
+linkarzu_color19="#8c3a44"   # dark aurora red
+linkarzu_color20="#88c0d0"   # frost light blue
+linkarzu_color21="#d8dee9"   # snow storm 0
+linkarzu_color22="#3b4252"   # polar night 1
+linkarzu_color23="#d8dee9"   # snow storm 0
+linkarzu_color24="#eceff4"   # cursor        (snow)

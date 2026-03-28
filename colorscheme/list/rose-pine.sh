@@ -1,0 +1,25 @@
+# Rose Pine
+linkarzu_color01="#c4a7e7"   # iris        (purple)
+linkarzu_color02="#9ccfd8"   # foam        (teal-green)
+linkarzu_color03="#31748f"   # pine        (dark teal)
+linkarzu_color04="#ebbcba"   # rose
+linkarzu_color05="#f6c177"   # gold        (yellow)
+linkarzu_color06="#ea9a97"   # cedar       (warm pink)
+linkarzu_color07="#524f67"   # highlight high
+linkarzu_color08="#6e6a86"   # muted       (dimmer surface)
+linkarzu_color09="#908caa"   # subtle      (inactive text)
+linkarzu_color10="#191724"   # base        (background)
+linkarzu_color11="#eb6f92"   # love        (red)
+linkarzu_color12="#ebbcba"   # rose/peach
+linkarzu_color13="#b4637a"   # dark love   (warm highlight)
+linkarzu_color14="#e0def4"   # text        (foreground)
+linkarzu_color15="#908caa"   # subtle fg
+linkarzu_color16="#26233a"   # overlay
+linkarzu_color17="#1f1d2e"   # surface
+linkarzu_color18="#c4a7e7"   # iris/pink
+linkarzu_color19="#6f2d4a"   # dark love2
+linkarzu_color20="#9ccfd8"   # foam bright
+linkarzu_color21="#6e6a86"   # muted2
+linkarzu_color22="#403d52"   # highlight mid
+linkarzu_color23="#21202e"   # highlight low
+linkarzu_color24="#ebbcba"   # cursor      (rose)

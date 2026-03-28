@@ -1,0 +1,25 @@
+# Gruvbox Dark
+linkarzu_color01="#d3869b"   # purple
+linkarzu_color02="#b8bb26"   # green
+linkarzu_color03="#8ec07c"   # aqua
+linkarzu_color04="#83a598"   # blue
+linkarzu_color05="#fabd2f"   # yellow
+linkarzu_color06="#8ec07c"   # bright aqua
+linkarzu_color07="#d8a657"   # light yellow
+linkarzu_color08="#665c54"   # bg3          (dimmer surface)
+linkarzu_color09="#504945"   # bg2          (inactive text)
+linkarzu_color10="#282828"   # background
+linkarzu_color11="#fb4934"   # red
+linkarzu_color12="#fe8019"   # orange
+linkarzu_color13="#cc241d"   # dark red     (warm highlight)
+linkarzu_color14="#ebdbb2"   # foreground
+linkarzu_color15="#d5c4a1"   # fg2
+linkarzu_color16="#7c6f64"   # bg4
+linkarzu_color17="#3c3836"   # bg1
+linkarzu_color18="#d3869b"   # pink/purple
+linkarzu_color19="#d65d0e"   # dark orange
+linkarzu_color20="#689d6a"   # bright cyan
+linkarzu_color21="#a89984"   # subtle fg
+linkarzu_color22="#504945"   # dark muted
+linkarzu_color23="#bdae93"   # fg3
+linkarzu_color24="#ebdbb2"   # cursor

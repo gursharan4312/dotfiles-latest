@@ -1,20 +1,9 @@
 # macOS-specific ZSH configuration
 
-# Colorscheme (set colorscheme_profile before sourcing to activate a theme)
-if [[ -n "$colorscheme_profile" ]]; then
-    "$HOME/github/dotfiles-latest/zsh/colorscheme-set.sh" "$colorscheme_profile"
-fi
-
 # Homebrew completions ($HOMEBREW_PREFIX is set by brew shellenv in .zprofile)
 if [[ -n "$HOMEBREW_PREFIX" ]]; then
     FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH"
     autoload -Uz compinit && compinit -C
-
-    # Google Cloud SDK
-    [[ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc" ]] &&
-        source "$HOMEBREW_PREFIX/share/google-cloud-sdk/path.zsh.inc"
-    [[ -f "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc" ]] &&
-        source "$HOMEBREW_PREFIX/share/google-cloud-sdk/completion.zsh.inc"
 fi
 
 # eza — modern ls

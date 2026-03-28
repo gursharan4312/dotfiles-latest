@@ -1,0 +1,25 @@
+# Tokyo Night
+linkarzu_color01="#9d7cd8"   # purple
+linkarzu_color02="#9ece6a"   # green
+linkarzu_color03="#7dcfff"   # cyan
+linkarzu_color04="#7aa2f7"   # blue
+linkarzu_color05="#e0af68"   # yellow
+linkarzu_color06="#2ac3de"   # bright cyan
+linkarzu_color07="#1abc9c"   # teal
+linkarzu_color08="#565f89"   # comment     (dimmer surface)
+linkarzu_color09="#414868"   # dark3       (inactive text)
+linkarzu_color10="#1a1b26"   # background
+linkarzu_color11="#f7768e"   # red
+linkarzu_color12="#ff9e64"   # orange
+linkarzu_color13="#db4b4b"   # dark red    (warm highlight)
+linkarzu_color14="#c0caf5"   # foreground
+linkarzu_color15="#a9b1d6"   # fg dark
+linkarzu_color16="#364a82"   # selection
+linkarzu_color17="#292e42"   # bg highlight
+linkarzu_color18="#bb9af7"   # magenta
+linkarzu_color19="#8c4351"   # dark red2
+linkarzu_color20="#b4f9f8"   # teal bright
+linkarzu_color21="#787c99"   # fg3
+linkarzu_color22="#545c7e"   # comment2
+linkarzu_color23="#828bb8"   # fg2
+linkarzu_color24="#c0caf5"   # cursor

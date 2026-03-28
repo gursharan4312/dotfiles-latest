@@ -1,0 +1,25 @@
+# Catppuccin Mocha
+linkarzu_color01="#cba6f7"   # mauve      (purple accent)
+linkarzu_color02="#a6e3a1"   # green
+linkarzu_color03="#94e2d5"   # teal
+linkarzu_color04="#89b4fa"   # blue
+linkarzu_color05="#f9e2af"   # yellow
+linkarzu_color06="#74c7ec"   # sapphire
+linkarzu_color07="#89dceb"   # sky
+linkarzu_color08="#45475a"   # surface1   (dimmer surface)
+linkarzu_color09="#6c7086"   # overlay0   (inactive text)
+linkarzu_color10="#1e1e2e"   # base       (background)
+linkarzu_color11="#f38ba8"   # red
+linkarzu_color12="#fab387"   # peach
+linkarzu_color13="#f2cdcd"   # flamingo   (warm highlight)
+linkarzu_color14="#cdd6f4"   # text       (foreground)
+linkarzu_color15="#bac2de"   # subtext1
+linkarzu_color16="#585b70"   # surface2
+linkarzu_color17="#313244"   # surface0
+linkarzu_color18="#f5c2e7"   # pink
+linkarzu_color19="#eba0ac"   # maroon
+linkarzu_color20="#b4befe"   # lavender
+linkarzu_color21="#a6adc8"   # subtext0
+linkarzu_color22="#7f849c"   # overlay1
+linkarzu_color23="#9399b2"   # overlay2
+linkarzu_color24="#f5e0dc"   # rosewater  (cursor)
