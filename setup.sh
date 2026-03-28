@@ -74,9 +74,10 @@ echo "Stowing packages..."
 mkdir -p "$HOME/.config"
 
 for folder in $STOW_FOLDERS; do
-    if [ "$folder" == "setup.sh" ] || [ "$folder" == "README.md" ]; then
-        continue
-    fi
+    case "$folder" in
+        setup.sh|bootstrap.sh|unstow.sh|colorscheme-set.sh|README.md|colorscheme|assets)
+            continue ;;
+    esac
 
     # Interactive prompt — default to yes on empty input
     printf "Stow '%s'? [Y/n] " "$folder"
@@ -102,9 +103,7 @@ for folder in $STOW_FOLDERS; do
         check_and_backup "$folder" "$rel_path"
     done
     
-    # --no-folding prevents stow from symlinking whole directories (e.g. ~/.config)
-    # and instead creates the real directories and symlinks individual files/dirs within them.
-    stow --no-folding -d "$DOTFILES_DIR" -t "$HOME" -R "$folder" 2>&1 | grep -v "BUG in find_stowed_path" || true
+    stow -d "$DOTFILES_DIR" -t "$HOME" -R "$folder" 2>&1 | grep -v "BUG in find_stowed_path" || true
 done
 
 echo "Done!"
