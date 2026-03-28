@@ -55,4 +55,4 @@ tmux set -g @catppuccin_window_current_text "#W#{?window_zoomed_flag,#[fg=$linka
 # Since I'm using the catppuccin theme, found this in the catpucchin tmux repo and that did it
 # https://github.com/catppuccin/tmux/blob/fe0d245e1c971789d87ab80f492a20709af91c91/catppuccin_tmux.conf#L308-L310
 # set -wF mode-style "fg=$linkarzu_color13,bg=$linkarzu_color02"
-tmux set -wF mode-style "fg=$linkarzu_color02,bg=$linkarzu_color13"
+tmux set -wgF mode-style "fg=$linkarzu_color02,bg=$linkarzu_color13"

@@ -242,6 +242,28 @@ EOF
 
 # ── tmux ──────────────────────────────────────────────────────────────────────
 
+generate_tmux() {
+    local out="$DOTFILES/tmux/.config/tmux-theme.conf"
+    mkdir -p "$(dirname "$out")"
+    cat > "$out" <<EOF
+set -g @catppuccin_directory_color          "$linkarzu_color03"
+set -g @catppuccin_window_current_color      "$linkarzu_color08"
+set -g @catppuccin_window_current_background "$linkarzu_color10"
+set -g @catppuccin_window_default_color      "$linkarzu_color23"
+set -g @catppuccin_window_default_background "$linkarzu_color10"
+set -g @catppuccin_pane_active_border_style  "fg=$linkarzu_color03"
+set -g @catppuccin_pane_border_style         "fg=$linkarzu_color09"
+set -g @catppuccin_status_background         "default"
+set -g @catppuccin_session_color             "#{?client_prefix,$linkarzu_color04,$linkarzu_color02}"
+set -g @catppuccin_window_default_fill       "number"
+set -g @catppuccin_window_default_text       "#[fg=$linkarzu_color14]#W"
+set -g @catppuccin_window_current_fill       "number"
+set -g @catppuccin_window_current_text       "#W#{?window_zoomed_flag,#[fg=$linkarzu_color04] (zoom),}#{?pane_synchronized,#[fg=$linkarzu_color04] SYNC,}"
+set -wgF mode-style                          "fg=$linkarzu_color02,bg=$linkarzu_color13"
+EOF
+    echo "  tmux"
+}
+
 apply_tmux() {
     if ! command -v tmux &>/dev/null || ! tmux info &>/dev/null 2>&1; then
         return 0
@@ -260,7 +282,7 @@ apply_tmux() {
     tmux set -g @catppuccin_window_current_fill "number"
     tmux set -g @catppuccin_window_current_text \
         "#W#{?window_zoomed_flag,#[fg=$linkarzu_color04] (zoom),}#{?pane_synchronized,#[fg=$linkarzu_color04] SYNC,}"
-    tmux set -wF mode-style "fg=$linkarzu_color02,bg=$linkarzu_color13"
+    tmux set -wgF mode-style "fg=$linkarzu_color02,bg=$linkarzu_color13"
     tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || tmux source-file ~/.tmux.conf 2>/dev/null || true
     echo "  tmux"
 }
@@ -291,6 +313,7 @@ generate_ghostty
 generate_kitty
 generate_btop
 generate_starship
+generate_tmux
 
 echo "Applying live:"
 apply_tmux
