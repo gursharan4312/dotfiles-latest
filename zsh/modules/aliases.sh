@@ -10,13 +10,9 @@ alias gs="git status"
 alias gd="git diff"
 
 # Project-specific aliases (only if directory exists)
-if [[ -d "$HOME/Desktop/brokerbay" ]]; then
-    BB="$HOME/Desktop/brokerbay"
-    alias bb="cd $BB"
-    alias app="cd $BB/app"
-    alias mobile="cd $BB/mobile"
-    alias rets="cd $BB/rets2"
-    alias script="cd $BB/scripts"
-    alias auth="cd $BB/auth-server"
-    alias bbcli="$BB/cli/dist/bbcli"
+if [[ -d "$HOME/Desktop/stackadapt" ]]; then
+  SS="$HOME/Desktop/stackadapt"
+  alias ss="cd $SS"
+  alias web="$SS/stackadapt-web"
+  alias frontend="$SS/frontend"
 fi
