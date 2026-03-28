@@ -70,11 +70,24 @@ check_and_backup() {
 
 echo "Stowing packages..."
 
+# Ensure ~/.config exists as a real directory so stow never folds it into a symlink
+mkdir -p "$HOME/.config"
+
 for folder in $STOW_FOLDERS; do
     if [ "$folder" == "setup.sh" ] || [ "$folder" == "README.md" ]; then
         continue
     fi
-    
+
+    # Interactive prompt — default to yes on empty input
+    printf "Stow '%s'? [Y/n] " "$folder"
+    read -r answer
+    case "$answer" in
+        [nN]|[nN][oO])
+            echo "Skipping $folder."
+            continue
+            ;;
+    esac
+
     echo "Processing $folder..."
     
     # Pre-process to handle backups and bad symlinks
@@ -89,8 +102,9 @@ for folder in $STOW_FOLDERS; do
         check_and_backup "$folder" "$rel_path"
     done
     
-    # Run stow (suppress harmless warnings about unrelated symlinks)
-    stow -d "$DOTFILES_DIR" -t "$HOME" -R "$folder" 2>&1 | grep -v "BUG in find_stowed_path" || true
+    # --no-folding prevents stow from symlinking whole directories (e.g. ~/.config)
+    # and instead creates the real directories and symlinks individual files/dirs within them.
+    stow --no-folding -d "$DOTFILES_DIR" -t "$HOME" -R "$folder" 2>&1 | grep -v "BUG in find_stowed_path" || true
 done
 
 echo "Done!"

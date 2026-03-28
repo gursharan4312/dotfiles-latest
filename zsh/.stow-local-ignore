@@ -1,0 +1,6 @@
+# Files/dirs sourced directly from the dotfiles repo path — not symlinked to $HOME
+^modules$
+^zshrc-.*\.sh$
+^colorscheme-set\.sh$
+^readme\.md$
+^\.gitignore$
