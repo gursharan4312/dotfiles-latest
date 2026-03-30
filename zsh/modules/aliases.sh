@@ -11,8 +11,8 @@ alias gd="git diff"
 
 # Project-specific aliases (only if directory exists)
 if [[ -d "$HOME/Desktop/stackadapt" ]]; then
-  SS="$HOME/Desktop/stackadapt"
-  alias ss="cd $SS"
-  alias web="$SS/stackadapt-web"
-  alias frontend="$SS/frontend"
+  SA="$HOME/Desktop/stackadapt"
+  alias sa="cd $SA"
+  alias web="$SA/stackadapt-web"
+  alias frontend="$SA/frontend"
 fi
