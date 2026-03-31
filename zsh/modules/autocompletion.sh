@@ -16,6 +16,12 @@ _comp_options+=(globdots)
 setopt AUTO_LIST
 setopt COMPLETE_IN_WORD
 
+
+# Begin Added by stack init (do not modify) #
+source /Users/gursharan.hayer/.stack/wrapper.sh
+source /Users/gursharan.hayer/.stack/completion.sh
+# End Added by stack init (do not modify) #
+
 zstyle ':completion:*' completer _extensions _complete _approximate
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$HOME/.zcompcache"
