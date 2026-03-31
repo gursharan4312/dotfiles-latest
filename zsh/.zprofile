@@ -9,3 +9,4 @@ export PATH="$HOME/.local/bin:$PATH"
 
 # Starship prompt config
 export STARSHIP_CONFIG="$HOME/github/dotfiles-latest/starship-config/.config/active-config.toml"
+eval "$(mise activate zsh --shims)"
