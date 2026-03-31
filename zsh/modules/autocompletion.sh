@@ -1,6 +1,9 @@
 zmodload zsh/complist
 autoload -Uz compinit
 
+# User-installed completions (e.g. sesh, custom tools)
+fpath=("$HOME/.zsh/completions" $fpath)
+
 # Regenerate dump at most once a day; -C skips security check for speed
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
     compinit
