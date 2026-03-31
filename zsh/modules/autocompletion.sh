@@ -1,8 +1,17 @@
 zmodload zsh/complist
 autoload -Uz compinit
 
-# User-installed completions (e.g. sesh, custom tools)
-fpath=("$HOME/.zsh/completions" $fpath)
+# Required by oh-my-zsh plugins (e.g. docker) that write completions here
+export ZSH_CACHE_DIR="${HOME}/.zsh/cache"
+mkdir -p "$ZSH_CACHE_DIR/completions"
+
+# User-installed completions, ohmyzsh plugin cache, and Homebrew completions
+# (all must be in fpath before compinit runs)
+if [[ -n "$HOMEBREW_PREFIX" ]]; then
+    fpath=("$HOME/.zsh/completions" "$ZSH_CACHE_DIR/completions" "$HOMEBREW_PREFIX/share/zsh/site-functions" $fpath)
+else
+    fpath=("$HOME/.zsh/completions" "$ZSH_CACHE_DIR/completions" $fpath)
+fi
 
 # Regenerate dump at most once a day; -C skips security check for speed
 if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then

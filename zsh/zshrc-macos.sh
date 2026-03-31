@@ -1,10 +1,5 @@
 # macOS-specific ZSH configuration
 
-# Homebrew completions ($HOMEBREW_PREFIX is set by brew shellenv in .zprofile)
-if [[ -n "$HOMEBREW_PREFIX" ]]; then
-    FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH"
-    autoload -Uz compinit && compinit -C
-fi
 
 # eza — modern ls
 if command -v eza &>/dev/null; then
