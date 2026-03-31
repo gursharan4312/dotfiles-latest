@@ -23,8 +23,10 @@ function sesh_connect() {
 
     [[ -z "$selected" ]] && return
 
-    local session_name
+    local session_name session_path
     session_name="$(basename "$selected")"
+    # sesh list emits ~ paths; tmux -c does not expand ~, so expand it manually
+    session_path="${selected/#\~/$HOME}"
 
     if tmux has-session -t="$session_name" 2>/dev/null; then
         tmux switch-client -t "$session_name"
@@ -32,8 +34,8 @@ function sesh_connect() {
     fi
 
     # New session: window 1 opens nvim, window 2 is a background shell
-    tmux new-session -d -s "$session_name" -c "$selected" -n "editor"
+    tmux new-session -d -s "$session_name" -c "$session_path" -n "editor"
     tmux send-keys -t "${session_name}:editor" "nvim" Enter
-    tmux new-window -t "$session_name" -d -c "$selected" -n "terminal"
+    tmux new-window -t "$session_name" -d -c "$session_path" -n "terminal"
     tmux switch-client -t "${session_name}:editor"
 }
