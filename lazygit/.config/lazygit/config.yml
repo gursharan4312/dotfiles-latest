@@ -1,0 +1,12 @@
+os:
+  # Edit (`e`): open file in the parent nvim instance at the cursor line.
+  # The `nvim-remote` preset uses $NVIM (set automatically when lazygit is
+  # launched from inside nvim, e.g. snacks.lazygit) and falls back to plain
+  # nvim when $NVIM is unset.
+  editPreset: "nvim-remote"
+
+  # Open (`o`): by default lazygit shells out to `open`/xdg-open which on macOS
+  # routes through LaunchServices and may open VSCode. Instead, reuse the
+  # current nvim instance via its RPC socket so the file opens in a new tab in
+  # the nvim that launched lazygit. Falls back to standalone nvim otherwise.
+  open: '[ -n "$NVIM" ] && nvim --server "$NVIM" --remote-tab "{{filename}}" || nvim "{{filename}}"'

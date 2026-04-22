@@ -1,5 +1,8 @@
 # macOS-specific ZSH configuration
 
+# Ensure tools that only honor XDG paths (e.g. lazygit) pick up configs from
+# ~/.config instead of macOS-specific locations like ~/Library/Application Support.
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # eza — modern ls
 if command -v eza &>/dev/null; then
