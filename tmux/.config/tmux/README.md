@@ -30,8 +30,10 @@ Colors: `tmux-theme.conf` (regenerate via `./colorscheme-set.sh` from repo root)
 | `Prefix + r` | Reload config |
 | `Prefix + T` | Sesh session picker (fzf) |
 | `Prefix + f` | tmux-fzf (sessions / windows / panes) |
-| `Prefix + O` | tmux-open — open file/path at cursor in `$EDITOR` |
+| `Prefix + O` | New window: `nvim .` in current pane’s directory |
 | `Prefix + m` | extrakto — pick text from scrollback |
+| `Prefix + [` then `o` | tmux-open — open highlighted text with default app (copy mode) |
+| `Prefix + [` then `C-o` | tmux-open — open highlighted text in nvim (copy mode) |
 | `Prefix + I` | Install / update TPM plugins |
 | `Shift+←` / `Shift+→` | Previous / next window |
 | `Alt+hjkl` | Move between panes |
@@ -43,7 +45,7 @@ Colors: `tmux-theme.conf` (regenerate via `./colorscheme-set.sh` from repo root)
 - **tmux-resurrect** + **tmux-continuum** — save/restore sessions (auto-restore on start)
 - **tmux-yank** — copy from vi mode to system clipboard
 - **tmux-fzf** — fuzzy finder for sessions/windows/panes
-- **tmux-open** — open paths in editor
+- **tmux-open** — open highlighted text in copy mode (`o` / `C-o`)
 - **tmux-extrakto** — extract URLs/paths from pane history
 
 ## Git in status bar
