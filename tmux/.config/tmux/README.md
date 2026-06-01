@@ -2,7 +2,7 @@
 
 Config: `~/.config/tmux/tmux.conf` (stow from `tmux/`).
 
-**Status bar & tabs:** [tmux2k](https://github.com/2KAbhishek/tmux2k) (catppuccin theme, git, cwd, time, path in window list).
+**Status bar & tabs:** [tmux2k](https://github.com/2KAbhishek/tmux2k) (catppuccin theme, upstream-style plugin layout).
 
 ## First-time setup
 
@@ -21,9 +21,9 @@ tmux2k needs **bash 5.2+**. Ghostty/kitty are supported; default Terminal.app is
 
 | Area | Content |
 |------|---------|
-| **Left** | Session name |
-| **Center** | Window tabs: `#I` + `#{b:pane_current_path}` |
-| **Right** | Git branch/status, cwd, time |
+| **Left** | Session name, git branch/status, cwd |
+| **Center** | Window tabs: `#I:#W` |
+| **Right** | CPU, RAM, battery, network, time |
 
 Theme colors: tmux2k built-in `catppuccin` palette (no manual overrides).
 
@@ -52,6 +52,6 @@ Theme colors: tmux2k built-in `catppuccin` palette (no manual overrides).
 | **tmux-yank** | Vi copy → clipboard |
 | **tmux-fzf** | Fuzzy session/window/pane picker |
 | **tmux-open** | Open selection in copy mode |
-| **tmux-extrakto** | Extract text from scrollback |
+| **extrakto** | Extract text from scrollback |
 
 Removed vs old setup: **catppuccin/tmux**, **gitmux**, **zsh window renamer** (tmux2k handles tabs + git).
