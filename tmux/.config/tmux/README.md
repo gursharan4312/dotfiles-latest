@@ -1,20 +1,51 @@
-# Contents
+# Tmux
 
-<!-- toc -->
+Catppuccin status bar + TPM plugins. Config: `~/.config/tmux/tmux.conf` (stow from `tmux/`).
 
-- [My Youtube video that explain this](#my-youtube-video-that-explain-this)
-- [Link to my blog with instructions](#link-to-my-blog-with-instructions)
+## First-time setup
 
-<!-- tocstop -->
+```bash
+brew bundle install          # tmux, tpm, sesh, gitmux
+./setup.sh gitmux tmux       # symlink configs
+# In tmux:
+#   Prefix + I               install TPM plugins
+#   Prefix + r               reload config
+```
 
-## My Youtube video that explain this
+## Status bar
 
-<div align="left">
-    <a href="https://youtu.be/0aD7-EBnULc">
-        <img src="https://res.cloudinary.com/daqwsgmx6/image/upload/v1706358848/youtube/2024-macos-workflow/08-tmux" alt="08 - What is tmux and how to use it in macOS" width="600"/>
-    </a>
-</div>
+| Area | Content |
+|------|---------|
+| **Left** | Session name |
+| **Right** | Current directory path, git branch/status (gitmux) |
+| **Window tabs** | `#I` + basename of pane path (`#{b:pane_current_path}`), flags on active tab |
 
-## Link to my blog with instructions
+Colors: `tmux-theme.conf` (regenerate via `./colorscheme-set.sh` from repo root).
 
-- [08 - What is tmux and how to use it in macOS](https://linkarzu.com/posts/2024-macos-workflow/setup-tmux/)
+## Keybindings
+
+| Keys | Action |
+|------|--------|
+| `Ctrl+Space` | Prefix |
+| `Prefix + r` | Reload config |
+| `Prefix + T` | Sesh session picker (fzf) |
+| `Prefix + f` | tmux-fzf (sessions / windows / panes) |
+| `Prefix + O` | tmux-open — open file/path at cursor in `$EDITOR` |
+| `Prefix + m` | extrakto — pick text from scrollback |
+| `Prefix + I` | Install / update TPM plugins |
+| `Shift+←` / `Shift+→` | Previous / next window |
+| `Alt+hjkl` | Move between panes |
+| `Ctrl+hjkl` | Vim-tmux-navigator (when nvim focused) |
+
+## Plugins (TPM)
+
+- **catppuccin/tmux** — theme and status modules
+- **tmux-resurrect** + **tmux-continuum** — save/restore sessions (auto-restore on start)
+- **tmux-yank** — copy from vi mode to system clipboard
+- **tmux-fzf** — fuzzy finder for sessions/windows/panes
+- **tmux-open** — open paths in editor
+- **tmux-extrakto** — extract URLs/paths from pane history
+
+## Git in status bar
+
+Requires **gitmux** (`brew install gitmux`) and `~/.gitmux.conf` (stow `gitmux/` package).
