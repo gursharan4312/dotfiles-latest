@@ -22,7 +22,7 @@ brew "mise"
 brew "tmux"
 brew "tpm"
 brew "sesh"
-brew "gitmux"
+brew "bash"          # tmux2k requires bash 5.2+
 
 # Editor / dev
 brew "bob"           # neovim version manager

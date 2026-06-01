@@ -1,26 +1,31 @@
 # Tmux
 
-Catppuccin status bar + TPM plugins. Config: `~/.config/tmux/tmux.conf` (stow from `tmux/`).
+Config: `~/.config/tmux/tmux.conf` (stow from `tmux/`).
+
+**Status bar & tabs:** [tmux2k](https://github.com/2KAbhishek/tmux2k) (catppuccin theme, git, cwd, time, path in window list).
 
 ## First-time setup
 
 ```bash
-brew bundle install          # tmux, tpm, sesh, gitmux
-./setup.sh gitmux tmux       # symlink configs
-# In tmux:
-#   Prefix + I               install TPM plugins
+brew bundle install          # tmux, tpm, bash 5.2+, sesh
+./setup.sh tmux
+
+# In tmux (install plugins once):
+#   Prefix + I
 #   Prefix + r               reload config
 ```
 
-## Status bar
+tmux2k needs **bash 5.2+**. Ghostty/kitty are supported; default Terminal.app is not.
+
+## Layout
 
 | Area | Content |
 |------|---------|
 | **Left** | Session name |
-| **Right** | Current directory path, git branch/status (gitmux) |
-| **Window tabs** | `#W` = cwd basename (zsh `tmux-window-name.sh` updates on each prompt) |
+| **Center** | Window tabs: `#I` + `#{b:pane_current_path}` |
+| **Right** | Git branch/status, cwd, time |
 
-Colors: `tmux-theme.conf` (regenerate via `./colorscheme-set.sh` from repo root).
+Theme colors: `tmux2k-overrides.conf` (regenerate via `./colorscheme-set.sh`).
 
 ## Keybindings
 
@@ -28,26 +33,25 @@ Colors: `tmux-theme.conf` (regenerate via `./colorscheme-set.sh` from repo root)
 |------|--------|
 | `Ctrl+Space` | Prefix |
 | `Prefix + r` | Reload config |
-| `Prefix + T` | Sesh session picker (fzf) |
-| `Prefix + f` | tmux-fzf (sessions / windows / panes) |
-| `Prefix + O` | New window: `nvim .` in current pane’s directory |
-| `Prefix + m` | extrakto — pick text from scrollback |
-| `Prefix + [` then `o` | tmux-open — open highlighted text with default app (copy mode) |
-| `Prefix + [` then `C-o` | tmux-open — open highlighted text in nvim (copy mode) |
-| `Prefix + I` | Install / update TPM plugins |
-| `Shift+←` / `Shift+→` | Previous / next window |
+| `Prefix + T` | Sesh session picker |
+| `Prefix + f` | tmux-fzf |
+| `Prefix + O` | New window: `nvim .` in pane cwd |
+| `Prefix + [` then `o` / `Ctrl+o` | tmux-open (copy mode) |
+| `Prefix + m` | extrakto |
+| `Prefix + I` | Install TPM plugins |
+| `Shift+←` / `Shift+→` | Prev / next window |
 | `Alt+hjkl` | Move between panes |
 | `Ctrl+hjkl` | Vim-tmux-navigator (when nvim focused) |
 
-## Plugins (TPM)
+## TPM plugins
 
-- **catppuccin/tmux** — theme and status modules
-- **tmux-resurrect** + **tmux-continuum** — save/restore sessions (auto-restore on start)
-- **tmux-yank** — copy from vi mode to system clipboard
-- **tmux-fzf** — fuzzy finder for sessions/windows/panes
-- **tmux-open** — open highlighted text in copy mode (`o` / `C-o`)
-- **tmux-extrakto** — extract URLs/paths from pane history
+| Plugin | Role |
+|--------|------|
+| **2kabhishek/tmux2k** | Theme, status bar, window list |
+| **tmux-resurrect** + **continuum** | Session restore |
+| **tmux-yank** | Vi copy → clipboard |
+| **tmux-fzf** | Fuzzy session/window/pane picker |
+| **tmux-open** | Open selection in copy mode |
+| **tmux-extrakto** | Extract text from scrollback |
 
-## Git in status bar
-
-Requires **gitmux** (`brew install gitmux`) and `~/.gitmux.conf` (stow `gitmux/` package).
+Removed vs old setup: **catppuccin/tmux**, **gitmux**, **zsh window renamer** (tmux2k handles tabs + git).
