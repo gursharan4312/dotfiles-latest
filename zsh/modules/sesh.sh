@@ -8,8 +8,8 @@ if [[ ! -f "$_sesh_comp" ]]; then
 fi
 
 # Switch to an existing session, or create a new one with:
-#   window 1 "editor"  — nvim starts immediately
-#   window 2 "terminal" — empty shell, stays in background
+#   window 1 — nvim (tab name = cwd basename via tmux-window-name.sh)
+#   window 2 — shell in same project directory
 function sesh_connect() {
     local selected
     selected="$(sesh list | fzf \
@@ -34,8 +34,9 @@ function sesh_connect() {
     fi
 
     # New session: window 1 opens nvim, window 2 is a background shell
-    tmux new-session -d -s "$session_name" -c "$session_path" -n "editor"
-    tmux send-keys -t "${session_name}:editor" "nvim" Enter
-    tmux new-window -t "$session_name" -d -c "$session_path" -n "terminal"
-    tmux switch-client -t "${session_name}:editor"
+    local win_name="${session_path:t}"
+    tmux new-session -d -s "$session_name" -c "$session_path" -n "$win_name"
+    tmux send-keys -t "${session_name}:1" "nvim" Enter
+    tmux new-window -t "$session_name" -d -c "$session_path" -n "$win_name"
+    tmux switch-client -t "${session_name}:1"
 }

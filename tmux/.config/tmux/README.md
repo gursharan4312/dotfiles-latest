@@ -18,7 +18,7 @@ brew bundle install          # tmux, tpm, sesh, gitmux
 |------|---------|
 | **Left** | Session name |
 | **Right** | Current directory path, git branch/status (gitmux) |
-| **Window tabs** | `#I` + basename of pane path (`#{b:pane_current_path}`), flags on active tab |
+| **Window tabs** | `#W` = cwd basename (zsh `tmux-window-name.sh` updates on each prompt) |
 
 Colors: `tmux-theme.conf` (regenerate via `./colorscheme-set.sh` from repo root).
 
