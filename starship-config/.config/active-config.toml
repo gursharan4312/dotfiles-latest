@@ -11,11 +11,14 @@ vicmd_symbol   = '[❮❮❮❮](#89b4fa bold)'
 [battery]
 disabled = true
 
+[aws]
+disabled = true
+
 [time]
 disabled = false
 style    = '#89b4fa bold'
-format   = '[\[\]]($style) '
-time_format = '%y/%m/%d'
+format   = '[\[$time\]]($style) '
+time_format = '%d/%m:%H:%M:%S'
 
 [username]
 show_always = true

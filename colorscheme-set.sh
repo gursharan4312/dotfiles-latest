@@ -212,11 +212,14 @@ vicmd_symbol   = '[❮❮❮❮](${linkarzu_color04} bold)'
 [battery]
 disabled = true
 
+[aws]
+disabled = true
+
 [time]
 disabled = false
 style    = '${linkarzu_color04} bold'
 format   = '[\[$time\]](\$style) '
-time_format = '%y/%m/%d'
+time_format = '%d/%m:%H:%M:%S'
 
 [username]
 show_always = true

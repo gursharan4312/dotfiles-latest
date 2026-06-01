@@ -28,3 +28,11 @@ fi
 eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+# Begin Added by stack init (do not modify) #
+autoload -Uz compinit
+compinit
+source /Users/gursharan.hayer/.stack/wrapper.sh
+source /Users/gursharan.hayer/.stack/completion.sh
+# End Added by stack init (do not modify) #

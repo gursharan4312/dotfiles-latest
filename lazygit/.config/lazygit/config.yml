@@ -1,8 +1,14 @@
 os:
   # Edit (`e`): open file in the parent nvim instance at the cursor line.
   editPreset: "nvim-remote"
-
   # Open (`o`): lazygit has no `openPreset`. Use nvim's `--remote` against the
   # parent instance's RPC socket ($NVIM, set automatically when lazygit is
   # launched from inside nvim) so the file opens in that same nvim.
   open: 'nvim --server "$NVIM" --remote "{{filename}}"'
+customCommands:
+  - key: "<c-a>"
+    context: "files"
+    description: "AI commit message (GitHub Models / Copilot)"
+    command: "lazygit-ai-commit"
+    loadingText: "Generating AI commit suggestions..."
+    output: terminal

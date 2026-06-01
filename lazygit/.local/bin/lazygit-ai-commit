@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# Generate AI commit message suggestions via GitHub Models API (free tier)
+# Requires: gh (authenticated), curl, jq, fzf
+
+set -euo pipefail
+
+GITHUB_TOKEN="$(gh auth token)"
+MODEL="${LAZYGIT_AI_MODEL:-gpt-4o-mini}"
+NUM_SUGGESTIONS=8
+
+# Ensure there are staged changes
+DIFF="$(git diff --cached)"
+if [[ -z "$DIFF" ]]; then
+  echo "Error: No staged changes found. Stage your changes first." >&2
+  exit 1
+fi
+
+DIFF_STAT="$(git diff --cached --stat)"
+RECENT_COMMITS="$(git log --oneline -10 2>/dev/null || true)"
+
+PROMPT="Generate exactly ${NUM_SUGGESTIONS} short commit message suggestions for the following changes.
+
+Rules:
+- Plain English, no prefixes like \"feat:\" or \"chore:\" or \"fix:\"
+- Summarize the OVERALL purpose of the change, not individual file edits
+- Think about what problem is being solved or what capability is being added as a whole
+- Do NOT mention specific file names or list multiple changes — synthesize them into one cohesive message
+- Use imperative mood (\"add\", \"remove\", \"update\", not \"added\")
+- Keep each message under 72 characters
+- No period at the end
+- Output ONLY the messages, one per line, no numbers or bullet points
+
+Recent commits for style reference:
+${RECENT_COMMITS}
+
+Changes:
+${DIFF_STAT}
+
+\`\`\`diff
+${DIFF}
+\`\`\`"
+
+PAYLOAD="$(jq -n \
+  --arg model "$MODEL" \
+  --arg prompt "$PROMPT" \
+  '{
+    model: $model,
+    messages: [{ role: "user", content: $prompt }],
+    temperature: 0.7,
+    max_tokens: 512
+  }')"
+
+RESPONSE="$(curl -s \
+  -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d "$PAYLOAD" \
+  "https://models.inference.ai.azure.com/chat/completions")"
+
+# Extract commit message lines from response
+SUGGESTIONS="$(echo "$RESPONSE" \
+  | jq -r '.choices[0].message.content // empty' \
+  | grep -v '^[[:space:]]*$')"
+
+if [[ -z "$SUGGESTIONS" ]]; then
+  echo "Error: Failed to generate suggestions." >&2
+  echo "API response: $RESPONSE" >&2
+  exit 1
+fi
+
+# Let user pick one via fzf, then open in $EDITOR for final review
+SELECTED="$(echo "$SUGGESTIONS" \
+  | fzf \
+      --height=40% \
+      --border=rounded \
+      --prompt="AI commit > " \
+      --preview="echo {}" \
+      --preview-window=up:3:wrap \
+      --ansi)"
+
+if [[ -z "$SELECTED" ]]; then
+  echo "Aborted." >&2
+  exit 0
+fi
+
+git commit -m "$SELECTED"
