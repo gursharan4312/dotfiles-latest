@@ -26,7 +26,6 @@ fi
 
 # Prompt
 eval "$(starship init zsh)"
-eval "$(mise activate zsh)"
 
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 

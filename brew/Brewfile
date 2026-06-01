@@ -21,6 +21,7 @@ brew "mise"
 # Terminal / multiplexer
 brew "tmux"
 brew "tpm"
+brew "sesh"
 
 # Editor / dev
 brew "bob"           # neovim version manager

@@ -354,7 +354,7 @@ if [ "$UPDATED" = true ]; then
 
   # Set the tmux colors
   $HOME/github/dotfiles-latest/tmux/tools/linkarzu/set_tmux_colors.sh
-  tmux source-file ~/.tmux.conf
+  tmux source-file ~/.config/tmux/tmux.conf 2>/dev/null || tmux source-file ~/.tmux.conf 2>/dev/null || true
   echo "Tmux colors set and tmux configuration reloaded."
 
   generate_starship_config

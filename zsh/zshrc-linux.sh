@@ -58,17 +58,30 @@ fi
 [[ -d "/usr/local/go/bin" ]] && export PATH="/usr/local/go/bin:$PATH"
 
 # Starship config
-export STARSHIP_CONFIG="$HOME/github/dotfiles-latest/starship-config/active-config.toml"
+export STARSHIP_CONFIG="$HOME/github/dotfiles-latest/starship-config/.config/active-config.toml"
 
 # =============================================================================
 # System Info Display
 # =============================================================================
 
-# Show system info on shell start (optional)
-if command -v fastfetch &>/dev/null; then
-    echo
-    fastfetch
-elif command -v neofetch &>/dev/null; then
-    echo
-    neofetch
+# Show system info on login shell only (skip new tmux panes)
+if [[ -z "$TMUX" ]]; then
+    if command -v fastfetch &>/dev/null; then
+        echo
+        fastfetch
+    elif command -v neofetch &>/dev/null; then
+        echo
+        neofetch
+    fi
+fi
+
+# fzf — completion and key bindings (Ctrl+R, Ctrl+T, Alt+C)
+if [[ -n "${HOMEBREW_PREFIX:-}" && -f "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh" ]]; then
+    source "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
+    source "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
+elif command -v fzf &>/dev/null; then
+    source <(fzf --zsh) 2>/dev/null
+elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
+    source /usr/share/doc/fzf/examples/key-bindings.zsh
+    source /usr/share/doc/fzf/examples/completion.zsh
 fi

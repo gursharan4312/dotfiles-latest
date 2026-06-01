@@ -1,5 +1,4 @@
-# Neovim with custom config
-alias vim="NVIM_APPNAME=astrovim5 nvim"
+alias vim=nvim
 
 # Git shortcuts
 alias push="git push"

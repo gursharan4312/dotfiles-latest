@@ -246,7 +246,7 @@ EOF
 # ── tmux ──────────────────────────────────────────────────────────────────────
 
 generate_tmux() {
-    local out="$DOTFILES/tmux/.config/tmux-theme.conf"
+    local out="$DOTFILES/tmux/.config/tmux/tmux-theme.conf"
     mkdir -p "$(dirname "$out")"
     cat > "$out" <<EOF
 set -g @catppuccin_directory_color          "$linkarzu_color03"

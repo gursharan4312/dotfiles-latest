@@ -7,16 +7,15 @@ Cross-platform ZSH configuration for **macOS** and **Linux**.
 ```
 zsh/
 ├── .zshrc                 # Main entry point (symlinked to ~/.zshrc via stow)
+├── .zprofile              # Login shell: Homebrew, mise shims, Starship path
 ├── .zsh_plugins.txt       # Antidote plugin list
 ├── zshrc-macos.sh         # macOS-specific config
 ├── zshrc-linux.sh         # Linux-specific config
-├── colorscheme-set.sh     # Theme/colorscheme helper
 └── modules/
-    ├── deps.sh            # Dependency management & auto-install
-    ├── aliases.sh         # Shell aliases
+    ├── aliases.sh         # Shell aliases (vim → nvim, git shortcuts)
     ├── autocompletion.sh  # Completion settings
-    ├── colors.sh          # Color definitions
-    └── history.sh         # History settings
+    ├── history.sh         # History settings
+    └── sesh.sh            # Tmux session picker (sesh + fzf)
 ```
 
 ## Installation
@@ -36,22 +35,18 @@ On first shell start, the config will:
 1. Install **antidote** plugin manager (if not present)
 2. Install all plugins from `.zsh_plugins.txt`
 
-### Missing Dependency Logging
-External tools that need a package manager are logged with install instructions:
-
-```
-[WARN] Missing dependencies (install manually):
-  • starship - brew install starship
-  • fzf - brew install fzf
-  • eza (optional) - brew install eza
-```
-
 ### Plugins (via Antidote)
-- `ohmyzsh/ohmyzsh` (lib, docker, kubectl)
+- `ohmyzsh/ohmyzsh` (lib, docker)
 - `zsh-users/zsh-autosuggestions`
 - `zsh-users/zsh-syntax-highlighting`
 - `zsh-users/zsh-completions`
 - `jeffreytse/zsh-vi-mode`
+
+### Tooling
+- **mise** — runtimes via shims in `.zprofile` (not double-activated in `.zshrc`)
+- **fzf** — Ctrl+R / Ctrl+T / Alt+C key bindings (macOS + Linux)
+- **sesh** — project tmux sessions; picker bound to tmux `Prefix + T`
+- **Starship** — prompt; theme from `colorscheme-set.sh` → `starship-config/.config/active-config.toml`
 
 ## Customization
 

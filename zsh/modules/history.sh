@@ -13,3 +13,6 @@ setopt sharehistory
 setopt incappendhistory
 setopt histignoredups
 setopt histignorespace
+setopt hist_ignore_all_dups
+setopt hist_find_no_dups
+setopt hist_reduce_blanks

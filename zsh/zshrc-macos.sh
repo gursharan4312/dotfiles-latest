@@ -25,3 +25,11 @@ if command -v zoxide &>/dev/null; then
     alias cd='z'
     alias cdd='z -'
 fi
+
+# fzf — completion and key bindings (Ctrl+R, Ctrl+T, Alt+C)
+if [[ -n "${HOMEBREW_PREFIX:-}" && -f "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh" ]]; then
+    source "${HOMEBREW_PREFIX}/opt/fzf/shell/completion.zsh"
+    source "${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh"
+elif command -v fzf &>/dev/null; then
+    source <(fzf --zsh) 2>/dev/null
+fi
