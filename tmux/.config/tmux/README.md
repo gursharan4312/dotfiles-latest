@@ -25,7 +25,7 @@ tmux2k needs **bash 5.2+**. Ghostty/kitty are supported; default Terminal.app is
 | **Center** | Window tabs: `#I` + `#{b:pane_current_path}` |
 | **Right** | Git branch/status, cwd, time |
 
-Theme colors: `tmux2k-overrides.conf` (regenerate via `./colorscheme-set.sh`).
+Theme colors: tmux2k built-in `catppuccin` palette (no manual overrides).
 
 ## Keybindings
 
