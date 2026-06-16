@@ -29,6 +29,13 @@ eval "$(starship init zsh)"
 
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 
+
+# opencode
+export PATH=/Users/gursharan.hayer/.opencode/bin:$PATH
+
+# Added by bifrost installer
+export PATH="$HOME/.bifrost/bin:$PATH"
+
 # Begin Added by stack init (do not modify) #
 autoload -Uz compinit
 compinit

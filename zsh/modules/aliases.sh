@@ -7,6 +7,7 @@ alias gc="git checkout"
 alias gcb="git checkout -b"
 alias gs="git status"
 alias gd="git diff"
+alias oc="opencode"
 
 # Project-specific aliases (only if directory exists)
 if [[ -d "$HOME/dev/stackadapt" ]]; then
