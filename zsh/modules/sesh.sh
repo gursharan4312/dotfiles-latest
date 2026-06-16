@@ -40,3 +40,37 @@ function sesh_connect() {
     tmux new-window -t "$session_name" -d -c "$session_path" -n "$win_name"
     tmux switch-client -t "${session_name}:1"
 }
+
+function sesh_open_dir() {
+    local session_path="${1:-}"
+    [[ -z "$session_path" ]] && return 1
+
+    session_path="${session_path/#\~/$HOME}"
+    [[ ! -d "$session_path" ]] && return 1
+    [[ -z "${TMUX:-}" ]] && return 1
+
+    session_path="${session_path:A}"
+    local session_name="${session_path:t}"
+
+    if tmux has-session -t="$session_name" 2>/dev/null; then
+        tmux switch-client -t "$session_name"
+        return
+    fi
+
+    tmux new-session -d -s "$session_name" -c "$session_path" -n "$session_name"
+    tmux switch-client -t "$session_name"
+}
+
+function sesh_open_worktree_branch() {
+    local branch="${1:-}"
+    [[ -z "$branch" ]] && return 1
+
+    local worktree_path
+    worktree_path="$(git worktree list --porcelain | awk -v branch="refs/heads/$branch" '
+        $1 == "worktree" { path = substr($0, 10) }
+        $1 == "branch" && $2 == branch { print path; exit }
+    ')"
+
+    [[ -z "$worktree_path" ]] && return 1
+    sesh_open_dir "$worktree_path"
+}
