@@ -17,6 +17,10 @@ source "$DOTFILES_ZSH/modules/sesh.sh"
 source ~/.antidote/antidote.zsh
 antidote load
 
+# history-substring-search keybindings
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
 # Platform-specific config
 if [[ "$OSTYPE" == darwin* ]]; then
     source "$DOTFILES_ZSH/zshrc-macos.sh"
@@ -27,18 +31,10 @@ fi
 # Prompt
 eval "$(starship init zsh)"
 
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-
-
-# opencode
-export PATH=/Users/gursharan.hayer/.opencode/bin:$PATH
-
-# Added by bifrost installer
-export PATH="$HOME/.bifrost/bin:$PATH"
-
 # Begin Added by stack init (do not modify) #
 autoload -Uz compinit
 compinit
 source /Users/gursharan.hayer/.stack/wrapper.sh
 source /Users/gursharan.hayer/.stack/completion.sh
 # End Added by stack init (do not modify) #
+eval "$(mise activate zsh)"

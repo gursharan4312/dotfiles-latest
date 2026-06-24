@@ -9,6 +9,10 @@ alias gs="git status"
 alias gd="git diff"
 alias oc="opencode"
 
+# Modern search tools
+alias rg='rg --smart-case'
+alias fd='fd --hidden --exclude .git'
+
 # Project-specific aliases (only if directory exists)
 if [[ -d "$HOME/dev/stackadapt" ]]; then
   SA="$HOME/dev/stackadapt"

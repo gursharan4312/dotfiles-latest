@@ -33,6 +33,14 @@ function sesh_connect() {
         return
     fi
 
+    local actual_session
+    actual_session="$(tmux list-sessions -F '#{session_name}' 2>/dev/null \
+        | grep "^${session_name}(" | head -1)"
+    if [[ -n "$actual_session" ]]; then
+        tmux switch-client -t "$actual_session"
+        return
+    fi
+
     # New session: window 1 opens nvim, window 2 is a background shell
     local win_name="${session_path:t}"
     tmux new-session -d -s "$session_name" -c "$session_path" -n "$win_name"
@@ -54,6 +62,14 @@ function sesh_open_dir() {
 
     if tmux has-session -t="$session_name" 2>/dev/null; then
         tmux switch-client -t "$session_name"
+        return
+    fi
+
+    local actual_session
+    actual_session="$(tmux list-sessions -F '#{session_name}' 2>/dev/null \
+        | grep "^${session_name}(" | head -1)"
+    if [[ -n "$actual_session" ]]; then
+        tmux switch-client -t "$actual_session"
         return
     fi
 

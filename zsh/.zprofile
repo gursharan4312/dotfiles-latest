@@ -10,3 +10,14 @@ export PATH="$HOME/.local/bin:$PATH"
 # Starship prompt config
 export STARSHIP_CONFIG="$HOME/github/dotfiles-latest/starship-config/.config/active-config.toml"
 eval "$(mise activate zsh --shims)"
+
+# opencode
+export PATH="$HOME/.opencode/bin:$PATH"
+
+# bifrost
+export PATH="$HOME/.bifrost/bin:$PATH"
+
+# MySQL client (Apple Silicon)
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+export PATH="/Users/gursharan.hayer/.bun/bin:$PATH"

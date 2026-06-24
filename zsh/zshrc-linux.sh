@@ -57,9 +57,6 @@ fi
 # Go
 [[ -d "/usr/local/go/bin" ]] && export PATH="/usr/local/go/bin:$PATH"
 
-# Starship config
-export STARSHIP_CONFIG="$HOME/github/dotfiles-latest/starship-config/.config/active-config.toml"
-
 # =============================================================================
 # System Info Display
 # =============================================================================
