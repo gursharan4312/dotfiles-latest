@@ -15,11 +15,6 @@ customCommands:
     output: terminal
   - key: "X"
     context: "localBranches"
-    description: "Open branch worktree in tmux window"
-    command: "zsh -c 'source \"$HOME/github/dotfiles-latest/zsh/modules/sesh.sh\"; sesh_open_worktree_branch \"$1\"' -- {{ .SelectedLocalBranch.Name | quote }}"
-    loadingText: "Opening branch worktree in tmux..."
-  - key: "<space>"
-    context: "localBranches"
     description: "Open branch worktree in tmux session"
-    command: "zsh -c 'source \"$HOME/github/dotfiles-latest/zsh/modules/sesh.sh\"; sesh_open_worktree_branch \"$1\"' -- {{ .SelectedLocalBranch.Name | quote }}"
+    command: "sesh-open-worktree {{ .SelectedLocalBranch.Name | quote }}"
     loadingText: "Opening branch worktree in tmux..."

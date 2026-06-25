@@ -90,105 +90,6 @@ EOF
     echo "  ghostty"
 }
 
-# ── Kitty ─────────────────────────────────────────────────────────────────────
-
-generate_kitty() {
-    local out="$DOTFILES/kitty/.config/kitty/active-theme.conf"
-    mkdir -p "$(dirname "$out")"
-    cat > "$out" <<EOF
-foreground            $linkarzu_color14
-background            $linkarzu_color10
-selection_foreground  $linkarzu_color14
-selection_background  $linkarzu_color16
-url_color             $linkarzu_color03
-# black
-color0                $linkarzu_color10
-color8                $linkarzu_color08
-# red
-color1                $linkarzu_color11
-color9                $linkarzu_color11
-# green
-color2                $linkarzu_color02
-color10               $linkarzu_color02
-# yellow
-color3                $linkarzu_color05
-color11               $linkarzu_color05
-# blue
-color4                $linkarzu_color04
-color12               $linkarzu_color04
-# magenta
-color5                $linkarzu_color01
-color13               $linkarzu_color01
-# cyan
-color6                $linkarzu_color03
-color14               $linkarzu_color03
-# white
-color7                $linkarzu_color14
-color15               $linkarzu_color14
-cursor                $linkarzu_color24
-cursor_text_color     $linkarzu_color10
-active_tab_foreground   $linkarzu_color10
-active_tab_background   $linkarzu_color02
-inactive_tab_foreground $linkarzu_color03
-inactive_tab_background $linkarzu_color10
-active_border_color     $linkarzu_color04
-inactive_border_color   $linkarzu_color10
-EOF
-    echo "  kitty"
-}
-
-# ── btop ──────────────────────────────────────────────────────────────────────
-
-generate_btop() {
-    local out="$DOTFILES/btop/.config/btop/themes/btop-theme.theme"
-    mkdir -p "$(dirname "$out")"
-    cat > "$out" <<EOF
-theme[main_bg]=""
-theme[main_fg]="$linkarzu_color14"
-theme[title]="$linkarzu_color14"
-theme[hi_fg]="$linkarzu_color02"
-theme[selected_bg]="$linkarzu_color04"
-theme[selected_fg]="$linkarzu_color14"
-theme[inactive_fg]="$linkarzu_color09"
-theme[graph_text]="$linkarzu_color14"
-theme[meter_bg]="$linkarzu_color17"
-theme[proc_misc]="$linkarzu_color01"
-theme[cpu_box]="$linkarzu_color04"
-theme[mem_box]="$linkarzu_color02"
-theme[net_box]="$linkarzu_color03"
-theme[proc_box]="$linkarzu_color05"
-theme[div_line]="$linkarzu_color17"
-theme[temp_start]="$linkarzu_color01"
-theme[temp_mid]="$linkarzu_color16"
-theme[temp_end]="$linkarzu_color06"
-theme[cpu_start]="$linkarzu_color01"
-theme[cpu_mid]="$linkarzu_color05"
-theme[cpu_end]="$linkarzu_color02"
-theme[free_start]="$linkarzu_color18"
-theme[free_mid]="$linkarzu_color16"
-theme[free_end]="$linkarzu_color06"
-theme[cached_start]="$linkarzu_color03"
-theme[cached_mid]="$linkarzu_color05"
-theme[cached_end]="$linkarzu_color08"
-theme[available_start]="$linkarzu_color21"
-theme[available_mid]="$linkarzu_color01"
-theme[available_end]="$linkarzu_color04"
-theme[used_start]="$linkarzu_color19"
-theme[used_mid]="$linkarzu_color05"
-theme[used_end]="$linkarzu_color02"
-theme[download_start]="$linkarzu_color01"
-theme[download_mid]="$linkarzu_color02"
-theme[download_end]="$linkarzu_color05"
-theme[upload_start]="$linkarzu_color08"
-theme[upload_mid]="$linkarzu_color16"
-theme[upload_end]="$linkarzu_color06"
-theme[process_start]="$linkarzu_color03"
-theme[process_mid]="$linkarzu_color02"
-theme[process_end]="$linkarzu_color06"
-EOF
-    echo "  btop"
-}
-
 # ── Starship ──────────────────────────────────────────────────────────────────
 
 generate_starship() {
@@ -250,24 +151,12 @@ reload_macos_apps() {
     if [[ -f "$DOTFILES/ghostty/reload-config.scpt" ]]; then
         osascript "$DOTFILES/ghostty/reload-config.scpt" 2>/dev/null && echo "  ghostty reloaded" || true
     fi
-
-    # Kitty — signal reload (no restart needed)
-    if pgrep -x kitty &>/dev/null; then
-        kill -SIGUSR1 "$(pgrep -x kitty)" 2>/dev/null && echo "  kitty reloaded" || true
-    fi
-
-    # Sketchybar
-    if command -v sketchybar &>/dev/null; then
-        sketchybar --reload 2>/dev/null && echo "  sketchybar reloaded" || true
-    fi
 }
 
 # ── Run everything ────────────────────────────────────────────────────────────
 
 echo "Generating configs:"
 generate_ghostty
-generate_kitty
-generate_btop
 generate_starship
 
 echo "Applying live:"

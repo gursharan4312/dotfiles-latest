@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Opens a git branch's worktree in a tmux session via sesh.
+# Usage: sesh-open-worktree <branch-name>
+
+branch="${1:-}"
+[[ -z "$branch" ]] && exit 1
+
+worktree_path="$(git worktree list --porcelain | awk -v branch="refs/heads/$branch" '
+    $1 == "worktree" { path = substr($0, 10) }
+    $1 == "branch" && $2 == branch { print path; exit }
+')"
+
+[[ -z "$worktree_path" ]] && exit 1
+[[ ! -d "$worktree_path" ]] && exit 1
+
+session_path="$(cd "$worktree_path" && pwd)"
+session_name="$(basename "$session_path")"
+
+if tmux has-session -t="$session_name" 2>/dev/null; then
+    tmux switch-client -t "$session_name"
+    exit 0
+fi
+
+actual_session="$(tmux list-sessions -F '#{session_name}' 2>/dev/null \
+    | grep "^${session_name}(" | head -1)"
+if [[ -n "$actual_session" ]]; then
+    tmux switch-client -t "$actual_session"
+    exit 0
+fi
+
+tmux new-session -d -s "$session_name" -c "$session_path" -n "$session_name"
+tmux switch-client -t "$session_name"
