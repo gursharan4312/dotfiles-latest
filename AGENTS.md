@@ -2,6 +2,10 @@
 
 macOS/Linux dotfiles managed with **GNU Stow**. No tests, lint, CI, or build system — this is a configuration repository.
 
+## Maintenance
+
+When any config, script, or structure in this repo changes, update this file to keep it accurate.
+
 ## Repo location constraint
 
 The repo **must** be cloned to `~/github/dotfiles-latest`. Paths are hardcoded to this location in `.zshrc`, `.zprofile`, `colorscheme-set.sh`, `kitty.conf`, and helper scripts.
