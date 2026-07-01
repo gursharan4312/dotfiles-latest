@@ -1,0 +1,40 @@
+{
+  "version": 3,
+  "workspaces": [
+    {
+      "id": "wW",
+      "custom_name": "dotfiles-latest",
+      "identity_cwd": "/Users/gursharan.hayer/github/dotfiles-latest",
+      "public_pane_numbers": {
+        "85": 1
+      },
+      "next_public_pane_number": 3,
+      "public_tab_numbers": [
+        1
+      ],
+      "next_public_tab_number": 2,
+      "tabs": [
+        {
+          "custom_name": null,
+          "layout": {
+            "Pane": 85
+          },
+          "panes": {
+            "85": {
+              "cwd": "/Users/gursharan.hayer/github/dotfiles-latest"
+            }
+          },
+          "zoomed": false,
+          "focused": 85,
+          "root_pane": 85
+        }
+      ],
+      "active_tab": 0
+    }
+  ],
+  "active": 0,
+  "selected": 0,
+  "sidebar_width": 26,
+  "sidebar_section_split": 0.5,
+  "collapsed_space_keys": []
+}

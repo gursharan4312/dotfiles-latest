@@ -15,6 +15,6 @@ customCommands:
     output: terminal
   - key: "X"
     context: "localBranches"
-    description: "Open branch worktree in tmux session"
-    command: "sesh-open-worktree {{ .SelectedLocalBranch.Name | quote }}"
-    loadingText: "Opening branch worktree in tmux..."
+    description: "Open branch worktree in herdr workspace"
+    command: "herdr-open-worktree {{ .SelectedLocalBranch.Name | quote }}"
+    loadingText: "Opening branch worktree in herdr..."

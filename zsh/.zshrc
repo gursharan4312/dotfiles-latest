@@ -37,3 +37,4 @@ compinit
 source /Users/gursharan.hayer/.stack/wrapper.sh
 source /Users/gursharan.hayer/.stack/completion.sh
 # End Added by stack init (do not modify) #
+eval "$(mise activate zsh)"

@@ -34,4 +34,24 @@ if [[ -d "$HOME/dev/stackadapt" ]]; then
     done
     return $rc
   }
+  wtpool() {
+    emulate -L zsh
+    local repo_root="$HOME/dev/stackadapt/web"
+    local git_root_cmd
+    git_root_cmd="$(git rev-parse --show-toplevel 2>/dev/null)"
+    if [[ -n "$git_root_cmd" && -e "$git_root_cmd/.agents/skills/sa-worktree/SKILL.md" ]]; then
+      repo_root="$git_root_cmd"
+    fi
+    local skill_dir="" d
+    for d in "$repo_root/.agents/skills" "$HOME/.cursor/skills" "$HOME/.claude/skills" "$HOME/.agents/skills" "$HOME/.config/agents/skills"; do
+      [[ -e "$d/sa-worktree/SKILL.md" ]] || continue
+      skill_dir="${d}/sa-worktree"
+      break
+    done
+    if [[ -z "$skill_dir" ]]; then
+      print -r -- "wtpool: sa-worktree skill not found" >&2
+      return 1
+    fi
+    command "${skill_dir}/scripts/wtpool" --repo "${repo_root}" "$@"
+  }
 fi

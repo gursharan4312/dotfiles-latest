@@ -1,0 +1,136 @@
+#!/usr/bin/env bash
+# herdr-open — fuzzy-pick a directory under configured roots and open it as a
+# herdr workspace.
+#
+#   - Linked git worktree  ──►  `herdr worktree open` (groups under parent repo)
+#   - Plain repo / folder  ──►  `herdr workspace create` (top-level workspace)
+#
+# Existing workspaces are reused via herdr's own cwd/path dedup in `worktree open`
+# and via path-keyed matching for plain workspaces — no double-create on re-pick.
+#
+# Mirrors `sesh connect <anything>` for tmux-sesh users.
+
+set -euo pipefail
+
+# ── Configured search roots (mirror ~/.config/herdr/plugins/config/sessionizer/config.toml) ──
+# Pre-existing worktrees (mall, web/staging, web/gh/<branch>…) live underneath
+# these paths. Anything in here is fair game for the fzf picker.
+roots=(
+    "$HOME/dev"
+    "$HOME/Workspace"
+    "$HOME/dev/stackadapt"
+    "$HOME/dev/stackadapt/web-worktrees"
+)
+
+# Skip noisy / heavy subtrees under each root. macOS BSD find uses a leading `!`
+# (not `-E !pattern`) before each predicate — a single "-E '!pat'" is a syntax
+# error and silently produces zero candidates.
+exclude_names=(
+    '.git'
+    'node_modules'
+    '.next'
+    'target'
+    'dist'
+    'build'
+    '.venv'
+    '__pycache__'
+)
+
+exists=()
+for r in "${roots[@]}"; do
+    [[ -d "$r" ]] && exists+=("$r")
+done
+if [[ ${#exists[@]} -eq 0 ]]; then
+    echo "herdr-open: no configured roots exist" >&2
+    exit 1
+fi
+
+# Build: find_args="-E <! pat>..." isn't valid BSD syntax; instead prepend `!`
+# before each `-path` predicate and use literal substring matching.
+find_predicates=()
+for name in "${exclude_names[@]}"; do
+    find_predicates+=(! -path "*/$name" ! -path "*/$name/*")
+done
+
+# Depth-1 only — one level under each configured root. No recursion, no noise.
+candidates="$(
+    find -L "${exists[@]}" -mindepth 1 -maxdepth 1 -type d "${find_predicates[@]}" 2>/dev/null \
+        | sort -u
+)"
+if [[ -z "$candidates" ]]; then
+    echo "herdr-open: no candidates under configured roots" >&2
+    exit 1
+fi
+
+picked="$(
+    printf '%s\n' "$candidates" \
+        | fzf --prompt="open: " \
+              --tiebreak=begin \
+              --preview='
+                  if git -C {} rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+                      branch=$(git -C {} rev-parse --abbrev-ref HEAD 2>/dev/null || echo detached)
+                      common=$(git -C {} rev-parse --path-format=absolute --git-common-dir 2>/dev/null | sed "s|/\\.git$||")
+                      if [[ "$common" != "{}" && -n "$common" ]]; then
+                          echo "WORKTREE │ $branch │ parent: $common"
+                      else
+                          echo "REPO     │ $branch"
+                      fi
+                  else
+                      echo "FOLDER"
+                  fi
+                  echo "──────────────────────────────────"
+                  ls -la --color=always {} 2>/dev/null | head -20
+              '
+)"
+[[ -z "$picked" ]] && exit 0
+
+label="$(basename "$picked")"
+
+# ── Decide: worktree vs plain ──────────────────────────────────────────────────
+main_repo=""
+wt_linked=0
+if git -C "$picked" rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    common="$(git -C "$picked" rev-parse --path-format=absolute --git-common-dir 2>/dev/null || true)"
+    # Strip trailing /.git — what remains is the main checkout.
+    main_repo="$(printf '%s' "$common" | sed 's|/\.git$||')"
+    # If main_repo is different from picked, it's a linked worktree, NOT the main checkout.
+    if [[ -n "$main_repo" && "$main_repo" != "$picked" ]]; then
+        wt_linked=1
+    fi
+fi
+
+if [[ "$wt_linked" -eq 1 ]]; then
+    # Linked worktree — use worktree.open so it groups under the parent repo.
+    # worktree.open reuses an existing workspace if one already points at this path.
+    exec herdr worktree open \
+        --cwd "$main_repo" \
+        --path "$picked" \
+        --label "$label" \
+        --focus
+else
+    # Plain repo or folder — workspace.create. Re-focus the existing workspace
+    # whose label matches `basename $picked` if one is already open. label-match
+    # is reliable because herdr always exposes `label` in `workspace list`,
+    # whereas cwd/checkout_path may be latent until git detection runs.
+    existing_ws="$(
+        herdr workspace list 2>/dev/null | python3 -c '
+import json, sys, os
+label = os.path.basename(sys.argv[1])
+try:
+    data = json.load(sys.stdin)
+    for ws in data.get("result", {}).get("workspaces", []):
+        if ws.get("label") == label:
+            print(ws.get("workspace_id") or "")
+            sys.exit(0)
+except Exception:
+    pass
+' "$picked"
+    )"
+    if [[ -n "$existing_ws" ]]; then
+        exec herdr workspace focus "$existing_ws"
+    fi
+    exec herdr workspace create \
+        --cwd "$picked" \
+        --label "$label" \
+        --focus
+fi

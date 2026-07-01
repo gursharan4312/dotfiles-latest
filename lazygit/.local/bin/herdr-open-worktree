@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Open a git branch's worktree in a herdr workspace.
+#
+# Mirrors sesh-open-worktree, but for herdr. Runs from any cwd inside the repo
+# (main checkout or any linked worktree) — resolves the main repo automatically.
+#
+# Usage: herdr-open-worktree <branch-name>
+
+set -euo pipefail
+
+branch="${1:-}"
+if [[ -z "$branch" ]]; then
+    echo "usage: $0 <branch>" >&2
+    exit 1
+fi
+
+# --path-format=absolute + --git-common-dir resolves to the main repo's .git,
+# stripping /.git yields the main repo cwd. Works from main checkout or any
+# linked worktree, which is the case broken by plain `git rev-parse --show-toplevel`.
+main_repo="$(
+    git rev-parse --path-format=absolute --git-common-dir 2>/dev/null \
+        | sed 's|/\.git$||'
+)"
+if [[ -z "$main_repo" ]] || [[ ! -d "$main_repo" ]]; then
+    echo "herdr-open-worktree: not inside a git repo" >&2
+    exit 1
+fi
+
+exec herdr worktree open \
+    --cwd "$main_repo" \
+    --branch "$branch" \
+    --focus
