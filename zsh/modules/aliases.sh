@@ -8,6 +8,8 @@ alias gcb="git checkout -b"
 alias gs="git status"
 alias gd="git diff"
 alias oc="opencode"
+alias cl="claude --effort xhigh --enable-auto-mode"
+alias cx="codex"
 
 # Modern search tools
 alias rg='rg --smart-case'

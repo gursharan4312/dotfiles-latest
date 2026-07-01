@@ -102,10 +102,12 @@ fi
 if [[ "$wt_linked" -eq 1 ]]; then
     # Linked worktree — use worktree.open so it groups under the parent repo.
     # worktree.open reuses an existing workspace if one already points at this path.
+    # No --label: herdr derives the sidebar label from the git branch, matching
+    # what `lazygit X` / `herdr-open-worktree <branch>` produce. This keeps the
+    # sidebar consistent across both flows.
     exec herdr worktree open \
         --cwd "$main_repo" \
         --path "$picked" \
-        --label "$label" \
         --focus
 else
     # Plain repo or folder — workspace.create. Re-focus the existing workspace

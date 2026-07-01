@@ -1,5 +1,9 @@
 DOTFILES_ZSH="$HOME/github/dotfiles-latest/zsh"
 
+# Editor (vim -> nvim; $EDITOR is exec'd directly so it can't use the vim alias)
+export EDITOR=nvim
+export VISUAL=nvim
+
 # History
 source "$DOTFILES_ZSH/modules/history.sh"
 
