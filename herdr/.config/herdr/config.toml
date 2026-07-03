@@ -26,6 +26,17 @@ previous_tab = "shift+left"
 next_tab     = "shift+right"
 new_workspace = "prefix+n"
 
+# Native new-tab action moved off prefix+c: it resolves the cwd from the pane's
+# spawn-time record, so tabs open in the pane's ORIGINAL dir even after a cd.
+# prefix+c is rebound below to `herdr tab create` (API path, live process cwd).
+new_tab = "prefix+shift+c"
+
+# ── New panes/tabs/workspaces inherit the focused pane's cwd ──────────────────
+# Mirrors tmux: bind c new-window -c "#{pane_current_path}" (and the -c splits).
+# Other accepted values: "home", "current" (herdr process dir), or a fixed path.
+[terminal]
+new_cwd = "follow"
+
 # ── Theme: catppuccin to match tmux2k ──────────────────────────────────────────
 [theme]
 name = "catppuccin"
@@ -63,3 +74,12 @@ key = "prefix+shift+t"
 type = "plugin_action"
 command = "sessionizer.open"
 description = "sessionizer: fzf project from projects.roots"
+
+# ── New tab in the focused pane's CURRENT dir (mirrors tmux bind c) ───────────
+# The API resolves the focused pane's live process cwd, unlike the native
+# new_tab action (stale spawn-time cwd). `type = "shell"` runs detached.
+[[keys.command]]
+key = "prefix+c"
+type = "shell"
+command = "herdr tab create --focus"
+description = "new tab in current dir"

@@ -96,10 +96,12 @@ Notable absences: `herdr` itself is **not** in the Brewfile — install it out-o
 
 - Config: `herdr/.config/herdr/config.toml` — prefix is Ctrl+Space (same as tmux). macOS tip: disable "Select the previous input source" in System Settings > Keyboard, exactly as for tmux, so Ctrl+Space reaches herdr.
 - `prefix+g` opens lazygit (`type = "pane"`); `prefix+shift+f` runs `herdr-open` (fzf folder picker); `prefix+shift+t` opens the sessionizer plugin (`sessionizer.open`).
+- `[terminal] new_cwd = "follow"` — splits and new workspaces inherit the focused pane's cwd, mirroring tmux's `-c "#{pane_current_path}"` bindings. **But herdr's native `new_tab` action resolves the pane's spawn-time cwd, not the live one after a `cd`** — so `prefix+c` is rebound to a `type = "shell"` command running `herdr tab create --focus` (the API does a live process-cwd lookup); the native action is parked on `prefix+shift+c`.
 - `herdr-open` (in `lazygit/.local/bin/`) searches `~/dev`, `~/Workspace`, `~/dev/stackadapt`, `~/dev/stackadapt/web-worktrees` (depth-1, BSD-style `find` with `-E`-incompatible negated path predicates; matches the `projects.roots` list in `herdr/.config/herdr/plugins/config/sessionizer/config.toml`). Routes linked worktrees to `herdr worktree open` (groups under parent repo, like `lazygit X`), plain repos/folders to `herdr workspace create`.
 - Theme: `catppuccin` to match tmux2k.
 - Tracked plugin manifest: `herdr/.config/herdr/plugins/config/sessionizer/config.toml` — defines the "dev" workspace layout (tab with nvim editor + `opencode` agent pane right + lazygit pane down).
 - Runtime state (`session.json`, `plugins.json`, `*.log`, `*.sock`) is gitignored by `herdr/.config/herdr/.gitignore` — some files were committed previously and remain in the tree but won't show up in `git status`.
+- **Stow folded this package**: `~/.config/herdr` is a single directory symlink into the repo (`../github/dotfiles-latest/herdr/.config/herdr`), not per-file links. That's why herdr's runtime files land inside the repo dir, and why creating/replacing files at `~/.config/herdr/...` paths writes directly into the repo — never `ln -sf` "back to the repo" from there; the file is already the repo file.
 
 ## lazygit custom config
 
