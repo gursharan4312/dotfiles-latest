@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# fzf-pick a linked worktree of the current repo and open it as a herdr
+# workspace (grouped under the parent repo, focuses if already open).
+#
+# Exists because herdr's native open_worktree action refuses to run from a
+# linked-worktree workspace (toast: "New and open worktree actions start from
+# the repo parent workspace", code linked_worktree_source). The API has the
+# same guard on the --cwd source, so like herdr-open-worktree we resolve the
+# main repo first — then this works from any pane inside the repo.
+#
+# Usage: herdr-worktree-picker
+
+set -euo pipefail
+
+# Main repo root from any checkout (see herdr-open-worktree for why
+# --git-common-dir instead of --show-toplevel).
+main_repo="$(
+    git rev-parse --path-format=absolute --git-common-dir 2>/dev/null \
+        | sed 's|/\.git$||'
+)"
+if [[ -z "$main_repo" ]] || [[ ! -d "$main_repo" ]]; then
+    echo "herdr-worktree-picker: not inside a git repo" >&2
+    sleep 1.5
+    exit 1
+fi
+
+# mise shims (python3) are only on PATH in zsh; fall back to the system python.
+python3="$(command -v python3 || true)"
+[[ -z "$python3" ]] && python3=/usr/bin/python3
+
+# Rows: "<open-marker> <branch-or-detached>  <path>" — path is the last field.
+choices="$(
+    herdr worktree list --cwd "$main_repo" --json | "$python3" -c "
+import json, sys
+for w in json.load(sys.stdin)[\"result\"][\"worktrees\"]:
+    if not w.get(\"is_linked_worktree\"):
+        continue  # skip the main checkout itself
+    mark = \"*\" if w.get(\"open_workspace_id\") else \" \"
+    branch = w.get(\"branch\") or \"(detached)\"
+    path = w[\"path\"]
+    print(mark + \" \" + branch + \"\t\" + path)
+"
+)"
+
+if [[ -z "$choices" ]]; then
+    echo "herdr-worktree-picker: no linked worktrees in $main_repo" >&2
+    sleep 1.5
+    exit 0
+fi
+
+pick="$(printf '%s\n' "$choices" | fzf --delimiter='\t' --prompt='open worktree> ')" \
+    || exit 0 # cancelled
+
+exec herdr worktree open --cwd "$main_repo" --path "${pick#*$'\t'}" --focus

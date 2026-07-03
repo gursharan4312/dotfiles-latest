@@ -31,6 +31,13 @@ new_workspace = "prefix+n"
 # prefix+c is rebound below to `herdr tab create` (API path, live process cwd).
 new_tab = "prefix+shift+c"
 
+# NOTE: the native open_worktree action is deliberately NOT bound — it refuses
+# to run from a linked-worktree workspace (linked_worktree_source guard).
+# prefix+shift+o is bound below to herdr-worktree-picker instead, which
+# resolves the main repo first and therefore works from any pane in the repo.
+# new_worktree (create + open) stays on its default prefix+shift+g and only
+# works from the repo parent workspace (same upstream guard).
+
 # ── New panes/tabs/workspaces inherit the focused pane's cwd ──────────────────
 # Mirrors tmux: bind c new-window -c "#{pane_current_path}" (and the -c splits).
 # Other accepted values: "home", "current" (herdr process dir), or a fixed path.
@@ -85,3 +92,12 @@ key = "prefix+c"
 type = "shell"
 command = "herdr tab create --focus"
 description = "new tab in current dir"
+
+# ── Worktree picker: fzf this repo's worktrees, open pick as workspace ────────
+# Replaces the native open_worktree action, which bails from linked-worktree
+# workspaces. Script: ~/github/dotfiles-latest/lazygit/.local/bin/herdr-worktree-picker
+[[keys.command]]
+key = "prefix+shift+o"
+type = "pane"
+command = "herdr-worktree-picker"
+description = "fzf-open a worktree of this repo"
