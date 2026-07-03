@@ -95,7 +95,7 @@ Notable absences: `herdr` itself is **not** in the Brewfile — install it out-o
 ## herdr notes
 
 - Config: `herdr/.config/herdr/config.toml` — prefix is Ctrl+Space (same as tmux). macOS tip: disable "Select the previous input source" in System Settings > Keyboard, exactly as for tmux, so Ctrl+Space reaches herdr.
-- `prefix+g` opens lazygit (`type = "pane"`); `prefix+shift+f` runs `herdr-open` (fzf folder picker); `prefix+shift+t` opens the sessionizer plugin (`sessionizer.open`).
+- `prefix+g` opens lazygit (`type = "pane"`); `prefix+shift+f` runs `herdr-open` (fzf folder picker); `prefix+shift+n` opens the sessionizer plugin (`sessionizer.open` — moved off `prefix+shift+t` to keep the default `rename_tab` binding there; `prefix+shift+n` is free because `new_workspace` is remapped to `prefix+n`).
 - `[terminal] new_cwd = "follow"` — splits and new workspaces inherit the focused pane's cwd, mirroring tmux's `-c "#{pane_current_path}"` bindings. **But herdr's native `new_tab` action resolves the pane's spawn-time cwd, not the live one after a `cd`** — so `prefix+c` is rebound to a `type = "shell"` command running `herdr tab create --focus` (the API does a live process-cwd lookup); the native action is parked on `prefix+shift+c`.
 - `herdr-open` (in `lazygit/.local/bin/`) searches `~/dev`, `~/Workspace`, `~/dev/stackadapt`, `~/dev/stackadapt/web-worktrees` (depth-1, BSD-style `find` with `-E`-incompatible negated path predicates; matches the `projects.roots` list in `herdr/.config/herdr/plugins/config/sessionizer/config.toml`). Routes linked worktrees to `herdr worktree open` (groups under parent repo, like `lazygit X`), plain repos/folders to `herdr workspace create`.
 - Theme: `catppuccin` to match tmux2k.

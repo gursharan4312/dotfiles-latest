@@ -69,8 +69,10 @@ description = "fzf-open folder or worktree"
 # ── Sessionizer (kept for projects outside the configured roots) ───────────────
 # Only `sessionizer.open`, which never creates worktrees — it focuses existing
 # workspaces or creates plain project workspaces from fzf over projects.roots.
+# On prefix+shift+n (free: new_workspace default, remapped to prefix+n above) so
+# prefix+shift+t keeps its default rename_tab action.
 [[keys.command]]
-key = "prefix+shift+t"
+key = "prefix+shift+n"
 type = "plugin_action"
 command = "sessionizer.open"
 description = "sessionizer: fzf project from projects.roots"
