@@ -101,7 +101,7 @@ Notable absences: `herdr` itself is **not** in the Brewfile — install it out-o
 - `herdr-open` (in `lazygit/.local/bin/`) searches `~/dev`, `~/Workspace`, `~/dev/stackadapt`, `~/dev/stackadapt/web-worktrees` (depth-1, BSD-style `find` with `-E`-incompatible negated path predicates; matches the `projects.roots` list in `herdr/.config/herdr/plugins/config/sessionizer/config.toml`). Routes linked worktrees to `herdr worktree open` (groups under parent repo, like `lazygit X`), plain repos/folders to `herdr workspace create`.
 - Theme: `catppuccin` to match tmux2k.
 - Tracked plugin manifest: `herdr/.config/herdr/plugins/config/sessionizer/config.toml` — defines the "dev" workspace layout (tab with nvim editor + `opencode` agent pane right + lazygit pane down).
-- Runtime state (`session.json`, `plugins.json`, `*.log`, `*.sock`) is gitignored by `herdr/.config/herdr/.gitignore` — some files were committed previously and remain in the tree but won't show up in `git status`.
+- Runtime state (`session.json`, `plugins.json`, `release-notes.json`, `*.log`, `*.sock`) is gitignored by `herdr/.config/herdr/.gitignore` — some files were committed previously and remain in the tree but won't show up in `git status`.
 - **Stow folded this package**: `~/.config/herdr` is a single directory symlink into the repo (`../github/dotfiles-latest/herdr/.config/herdr`), not per-file links. That's why herdr's runtime files land inside the repo dir, and why creating/replacing files at `~/.config/herdr/...` paths writes directly into the repo — never `ln -sf` "back to the repo" from there; the file is already the repo file.
 
 ## lazygit custom config
@@ -114,7 +114,7 @@ Notable absences: `herdr` itself is **not** in the Brewfile — install it out-o
 
 ## ZSH specifics
 
-- `.zshrc` sources four modules from the repo path (not symlinked): `history.sh` (10k hist, 20k savehist, various dedup opts), `autocompletion.sh` (zsh/complist, fpath includes `$HOME/.zsh/completions`, `$ZSH_CACHE_DIR/completions`, brew site-functions; stubs `compdef` until ohmyzsh load is done), `aliases.sh`, `sesh.sh` (project-session picker).
+- `.zshrc` sources five modules from the repo path (not symlinked): `history.sh` (10k hist, 20k savehist, various dedup opts), `autocompletion.sh` (zsh/complist, fpath includes `$HOME/.zsh/completions`, `$ZSH_CACHE_DIR/completions`, brew site-functions; stubs `compdef` until ohmyzsh load is done), `aliases.sh`, `sesh.sh` (project-session picker), `herdr-tab.sh` — singular zsh `preexec`/`precmd` hooks (the singular functions, not `add-zsh-hook preexec` because the array form passes no args). `preexec` matches the first post-alias-expansion token against `claude|cl`, `opencode|oc`, `codex|cx` and renames the focused tab to `<current-label>.<agent>` — strips any existing `.claude/.opencode/.codex` suffix first so custom names like `babysit loop` become `babysit loop.codex` and switching agents in the same tab swaps just the suffix. `precmd` strips the suffix when `herdr pane get $HERDR_PANE_ID .agent` is empty (agent foreground gone); agents still running keep the suffix. Both no-op outside herdr because `HERDR_TAB_ID`/`HERDR_PANE_ID` are unset.
 - Platform split by `$OSTYPE == darwin*`: `zshrc-macos.sh` (eza/bat/zoxide/fzf via Homebrew; sets `XDG_CONFIG_HOME=$HOME/.config`) vs `zshrc-linux.sh` (same with fallbacks: `batcat`, `z.lua`, `neofetch`, distro `/usr/share/doc/fzf/examples`; runs `fastfetch` on login shell — skipped in tmux).
 - Aliases shipped: `vim=nvim`, git shortcuts (`push/pull/gc/gcb/gs/gd`), `oc=opencode`, `cl=claude --effort xhigh --enable-auto-mode`, `cx=codex`. `rg` has `--smart-case` and `fd` has `--hidden --exclude .git` defaults.
 - **StackAdapt-specific aliases** (only when `~/dev/stackadapt` exists): `sa`, `web`, `frontend`, `backend`, `down` (runs `stack down` in both frontend & backend with labels), `wtpool` (locates the `sa-worktree` SKILL and runs `scripts/wtpool`). `down` and `wtpool` need dev/stackadapt checked out.
@@ -163,6 +163,7 @@ A second static theme `btop/.config/btop/themes/dracula.theme` is also tracked (
 - `herdr/.config/herdr/session.json` — runtime (was committed historically, still in tree)
 - `herdr/.config/herdr/plugins.json` — plugin manifest cache
 - `herdr/.config/herdr/herdr-{client,server}.log`, `*.sock`
+- `herdr/.config/herdr/release-notes.json` — written by `herdr update` with versioned changelog
 
 ## Known inconsistencies to address (agents do not silently fix)
 

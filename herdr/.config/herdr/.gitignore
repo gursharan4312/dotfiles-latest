@@ -1,5 +1,6 @@
 session.json
 plugins.json
+release-notes.json
 plugins/
 *.log
 *.sock
