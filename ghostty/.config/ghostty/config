@@ -11,7 +11,7 @@ custom-shader = shaders/cursor_blaze_no_trail.glsl
 custom-shader = shaders/cursor_smear.glsl
 
 # Start inside herdr automatically (agent multiplexer)
-command = zsh --login -c 'if [ -n "$TMUX" ] || [ -n "$HERDR" ]; then exec zsh; elif command -v herdr >/dev/null 2>&1; then herdr; else exec zsh; fi'
+#command = zsh --login -c 'if [ -n "$TMUX" ] || [ -n "$HERDR" ]; then exec zsh; elif command -v herdr >/dev/null 2>&1; then herdr; else exec zsh; fi'
 
 # Window
 window-padding-x = 8

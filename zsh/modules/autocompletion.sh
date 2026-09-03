@@ -1,5 +1,17 @@
 zmodload zsh/complist
 
+# Fix stale FPATH after Homebrew zsh upgrade: brew shellenv exports FPATH
+# with the version-specific Cellar path, which breaks when zsh is upgraded.
+# Ensure the stable zsh functions dir is in fpath so built-in functions
+# (is-at-least, add-zsh-hook, colors, compinit, etc.) can be autoloaded.
+local _zsh_funcs_dir
+for _zsh_funcs_dir in /opt/homebrew/share/zsh/functions /usr/share/zsh/functions; do
+    [[ -d $_zsh_funcs_dir ]] || continue
+    (( ${fpath[(I)$_zsh_funcs_dir]} )) && break
+    fpath=($_zsh_funcs_dir $fpath)
+    break
+done
+
 # oh-my-zsh lib (e.g. directories.zsh) calls compdef during antidote load,
 # before stack's compinit. Stub until compinit replaces it.
 compdef() { : }

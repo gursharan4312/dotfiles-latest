@@ -61,6 +61,7 @@ Each top-level directory (except those listed below) is a stow package whose con
 | `lazygit/` | `~/.config/lazygit/` + `~/.local/bin/` | TUI git client. `config.yml` (`nvim-remote` edit/open presets, two customCommands) + bin scripts in `.local/bin/`. |
 | `mise/` | n/a (single file `mise.toml` in repo root) | Tool version manager. **`mise.toml` sits at repo root**, not in a package. Only `lua = "latest"` is managed. |
 | `mouseless/` | `~/.config/mouseless/` | macOS keyboard-driven mouse control. `config.yaml` (+ `config.bakup.yaml`). |
+| `orca/` | `~/.orca/` | Orca app settings. `keybindings.json` tracked; app-generated `agent-hooks/` and `claude-agent-teams-bin/` gitignored via `orca/.orca/.gitignore`. **Stow-folded like herdr**: `~/.orca` is a single dir symlink into the repo, so Orca's runtime writes land in the repo dir. |
 | `starship-config/` | `~/.config/` | Prompt config. `active-config.toml` (generated, written through `STARSHIP_CONFIG` env var), `starship.toml` (static Nerd Font symbols), plus legacy variants `starship-eldritch.toml`, `starship-linkarzu.toml`, `starship1..4.toml`. |
 | `tmux/` | `~/.config/tmux/` | Legacy multiplexer. `tmux.conf` (prefix=Ctrl+Space, tmux2k status bar, plugins via TPM), `scripts/update-session-name.sh` (auto-renames session with git branch). |
 | `vimrc/` | `~/.vimrc` | **Legacy `.vimrc`** (vim-plug, bullets.vim) used by Obsidian / sticky-notes — *not* Neovim config. `vimrc-file-sticky` is `source`d from `.vimrc` for `sticky.md` sessions. |
