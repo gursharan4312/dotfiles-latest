@@ -1,3 +1,7 @@
+# The web monorepo has a 3.3G .git, so a cold `git status` render can exceed
+# starship's 500ms default. Raise the ceiling to keep git_status in the prompt.
+command_timeout = 2000
+
 format = """
 $username$hostname$time$all$directory
 $character

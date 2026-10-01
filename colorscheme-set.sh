@@ -96,6 +96,10 @@ generate_starship() {
     local out="$DOTFILES/starship-config/.config/active-config.toml"
     mkdir -p "$(dirname "$out")"
     cat > "$out" <<EOF
+# The web monorepo has a 3.3G .git, so a cold \`git status\` render can exceed
+# starship's 500ms default. Raise the ceiling to keep git_status in the prompt.
+command_timeout = 2000
+
 format = """
 \$username\
 \$hostname\
@@ -119,7 +123,7 @@ disabled = true
 [time]
 disabled = false
 style    = '${linkarzu_color04} bold'
-format   = '[\[$time\]](\$style) '
+format   = '[\[\$time\]](\$style) '
 time_format = '%d/%m:%H:%M:%S'
 
 [username]

@@ -9,6 +9,12 @@
 preexec() {
     emulate -L zsh
     [[ -z "$HERDR_TAB_ID" ]] && return 0
+    # Show `stack up` in herdr's agents sidebar so the pane running the app is one click away.
+    if [[ "$1" == "stack up" || "$1" == "stack up "* ]]; then
+        herdr pane report-agent "$HERDR_PANE_ID" --source stack-up --agent stack --state working &>/dev/null
+        _herdr_stack_up=1
+        return 0
+    fi
     local canonical
     case "${1%% *}" in
         claude|cl)    canonical=claude ;;
@@ -30,6 +36,10 @@ precmd() {
     emulate -L zsh
     [[ -z "$HERDR_TAB_ID" ]] && return 0
     [[ -z "$HERDR_PANE_ID" ]] && return 0
+    if [[ -n "$_herdr_stack_up" ]]; then
+        herdr pane release-agent "$HERDR_PANE_ID" --source stack-up --agent stack &>/dev/null
+        unset _herdr_stack_up
+    fi
     local agent
     agent=$(herdr pane get "$HERDR_PANE_ID" 2>/dev/null \
         | jq -r '.result.pane.agent // empty')
