@@ -12,20 +12,39 @@
 
 set -euo pipefail
 
-# ── Configured search roots (mirror ~/.config/herdr/plugins/config/sessionizer/config.toml) ──
-# Pre-existing worktrees (mall, web/staging, web/gh/<branch>…) live underneath
-# these paths. Anything in here is fair game for the fzf picker.
-roots=(
-    "$HOME/dev"
-    "$HOME/Workspace"
-    "$HOME/dev/stackadapt"
-    "$HOME/dev/stackadapt/web-worktrees"
-)
+# ── Search roots ──────────────────────────────────────────────────────────────
+# Single source of truth: the sessionizer plugin's [projects].roots array. The
+# same config is cloned to macOS and Linux/WSL, and roots that don't exist on
+# the current machine are dropped by the `exists` filter below — so no
+# per-platform conditionals live here.
+config_file="${HERDR_SESSIONIZER_CONFIG:-$HOME/.config/herdr/plugins/config/sessionizer/config.toml}"
+
+roots=()
+if [[ -r "$config_file" ]]; then
+    # roots is a single-line TOML array: strip `roots = [`, `]`, quotes, then
+    # split on commas and expand a leading `~`.
+    while IFS= read -r entry; do
+        [[ -n "$entry" ]] && roots+=("${entry/#\~/$HOME}")
+    done < <(
+        sed -nE 's/^[[:space:]]*roots[[:space:]]*=[[:space:]]*\[(.*)\].*/\1/p' "$config_file" 2>/dev/null \
+            | head -1 \
+            | tr ',' '\n' \
+            | tr -d "\"'" \
+            | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'
+    )
+fi
+
+# Fallback when the plugin config is missing or has no roots
+if [[ ${#roots[@]} -eq 0 ]]; then
+    echo "herdr-open: no roots in $config_file — falling back to ~/dev and ~/github" >&2
+    roots=("$HOME/dev" "$HOME/github")
+fi
 
 # Skip noisy / heavy subtrees under each root. macOS BSD find uses a leading `!`
 # (not `-E !pattern`) before each predicate — a single "-E '!pat'" is a syntax
 # error and silently produces zero candidates.
 exclude_names=(
+    '.*'
     '.git'
     'node_modules'
     '.next'

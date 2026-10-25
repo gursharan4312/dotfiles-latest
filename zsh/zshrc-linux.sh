@@ -47,6 +47,9 @@ fi
 # PATH Additions
 # =============================================================================
 
+# Bun is managed by mise (`mise use -g bun@latest` → ~/.config/mise/config.toml),
+# so `mise activate` puts it on PATH. No ~/.bun PATH block needed.
+
 # Neovim from various installation methods
 [[ -d "/opt/nvim-linux-x86_64/bin" ]] && export PATH="/opt/nvim-linux-x86_64/bin:$PATH"
 [[ -d "/opt/nvim/bin" ]] && export PATH="/opt/nvim/bin:$PATH"

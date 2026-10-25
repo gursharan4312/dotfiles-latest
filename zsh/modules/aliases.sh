@@ -13,7 +13,12 @@ alias cx="codex"
 
 # Modern search tools
 alias rg='rg --smart-case'
-alias fd='fd --hidden --exclude .git'
+# Debian/Ubuntu ship the fd binary as `fdfind`
+if command -v fd &>/dev/null; then
+    alias fd='fd --hidden --exclude .git'
+elif command -v fdfind &>/dev/null; then
+    alias fd='fdfind --hidden --exclude .git'
+fi
 
 # Project-specific aliases (only if directory exists)
 if [[ -d "$HOME/dev/stackadapt" ]]; then

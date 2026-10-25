@@ -1,6 +1,8 @@
 [projects]
-# Parent folders searched by the interactive pickers
-roots = ["~/dev/", "~/Workspace","~/dev/stackadapt", "~/dev/stackadapt/web-worktrees"]
+# Parent folders searched by the interactive pickers.
+# Single source of truth: herdr-open parses this line too, so keep it on ONE line.
+# Roots that don't exist on the current machine are skipped automatically.
+roots = ["~/dev/", "~/Workspace", "~/dev/stackadapt", "~/dev/stackadapt/web-worktrees", "~/github"]
 
 [layout]
 # How the plugin pane itself opens: overlay | split
