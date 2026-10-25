@@ -4,3 +4,5 @@ release-notes.json
 plugins/
 *.log
 *.sock
+*.sock.agent
+session-snapshots/

@@ -102,7 +102,7 @@ Notable absences: `herdr` itself is **not** in the Brewfile — install it out-o
 - `herdr-open` (in `lazygit/.local/bin/`) searches `~/dev`, `~/Workspace`, `~/dev/stackadapt`, `~/dev/stackadapt/web-worktrees` (depth-1, BSD-style `find` with `-E`-incompatible negated path predicates; matches the `projects.roots` list in `herdr/.config/herdr/plugins/config/sessionizer/config.toml`). Routes linked worktrees to `herdr worktree open` (groups under parent repo, like `lazygit X`), plain repos/folders to `herdr workspace create`.
 - Theme: `catppuccin` to match tmux2k.
 - Tracked plugin manifest: `herdr/.config/herdr/plugins/config/sessionizer/config.toml` — defines the "dev" workspace layout (tab with nvim editor + `opencode` agent pane right + lazygit pane down).
-- Runtime state (`session.json`, `plugins.json`, `release-notes.json`, `*.log`, `*.sock`) is gitignored by `herdr/.config/herdr/.gitignore` — some files were committed previously and remain in the tree but won't show up in `git status`.
+- Runtime state (`session.json`, `session-snapshots/`, `plugins.json`, `release-notes.json`, `*.log`, `*.sock`, `*.sock.agent`) is gitignored by `herdr/.config/herdr/.gitignore`. `herdr.sock.agent` is a symlink to the macOS SSH agent socket whose path changes every boot.
 - **Stow folded this package**: `~/.config/herdr` is a single directory symlink into the repo (`../github/dotfiles-latest/herdr/.config/herdr`), not per-file links. That's why herdr's runtime files land inside the repo dir, and why creating/replacing files at `~/.config/herdr/...` paths writes directly into the repo — never `ln -sf` "back to the repo" from there; the file is already the repo file.
 
 ## lazygit custom config
@@ -161,9 +161,9 @@ A second static theme `btop/.config/btop/themes/dracula.theme` is also tracked (
 - `tmux/.config/tmux/plugins/` — TPM plugins
 - `lazygit/.config/lazygit/state.yml` — lazygit runtime state (committed `config.yml` is the static config)
 - `zsh/.zsh_plugins.zsh` — antidote compiled plugins
-- `herdr/.config/herdr/session.json` — runtime (was committed historically, still in tree)
+- `herdr/.config/herdr/session.json`, `session-snapshots/` — runtime session state + auto backups
 - `herdr/.config/herdr/plugins.json` — plugin manifest cache
-- `herdr/.config/herdr/herdr-{client,server}.log`, `*.sock`
+- `herdr/.config/herdr/herdr-{client,server}.log`, `*.sock`, `*.sock.agent`
 - `herdr/.config/herdr/release-notes.json` — written by `herdr update` with versioned changelog
 
 ## Known inconsistencies to address (agents do not silently fix)
