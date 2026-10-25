@@ -169,7 +169,7 @@ A second static theme `btop/.config/btop/themes/dracula.theme` is also tracked (
 - **Lazygit state.yml** gitignored per-package at `lazygit/.config/lazygit/.gitignore`.
 - **TPM plugins** gitignored at `tmux/.config/tmux/.gitignore` (`plugins/`).
 - **Antidote compiled plugins** gitignored at repo root (`zsh/.zsh_plugins.zsh` listed in top-level `.gitignore`).
-- **Cargo/Lua build artifacts**, Neovim `lazyvim.json` files, several `karabiner/`, `brew/*/Brewfile.lock.json`, and assorted scratch files (`tt.*`, `foo.*`, `*.log`) are all in the top-level `.gitignore`.
+- **Cargo/Lua build artifacts**, Neovim `lazyvim.json` files, `brew/*/Brewfile.lock.json`, and assorted scratch files (`tt.*`, `foo.*`, `*.log`) are all in the top-level `.gitignore`.
 - **`mise.toml`** is at repo root, not inside a package, and only declares `lua = "latest"`. Repo-level pins only apply inside `~/github/dotfiles-latest`; global tools (e.g. `bun`) live in `~/.config/mise/config.toml`.
 - **`DOTFILES_ZSH` is a hard absolute path** in `.zshrc`, so `modules/*.sh` must stay inside the repo at `$HOME/github/dotfiles-latest/zsh/modules/` for sourcing to work.
 - **`setup.sh` and `unstow.sh` both interactive** — they `read` a Y/n prompt per package, so they are **not safe to run unattended** in agent automation. `bootstrap.sh` takes entire-machine scope.
