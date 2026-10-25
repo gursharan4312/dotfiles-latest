@@ -201,6 +201,60 @@ generate_eza() {
     echo "  eza"
 }
 
+# ── opencode ─────────────────────────────────────────────────────────────────
+# opencode keeps its theme in the CLI settings file (NOT opencode.jsonc).
+# Only the `theme` object is touched; every other key is preserved.
+
+generate_opencode() {
+    local conf_dir="${XDG_CONFIG_HOME:-$HOME/.config}/opencode"
+    local out="$conf_dir/cli.json"
+    local theme
+
+    case "$chosen" in
+        catppuccin-mocha) theme="catppuccin-mocha" ;;
+        dracula)          theme="dracula" ;;
+        gruvbox-dark)     theme="gruvbox-dark-medium" ;;
+        nord)             theme="nord" ;;
+        rose-pine)        theme="rose-pine" ;;
+        tokyo-night)      theme="tokyonight" ;;
+        # No built-in equivalent (custom linkarzu palette): let opencode derive
+        # its colours from the terminal palette this script just set.
+        *)                theme="system" ;;
+    esac
+
+    if [[ ! -f "$out" && ! -d "$conf_dir" ]]; then
+        echo "  opencode (skipped: $conf_dir not found)"
+        return 0
+    fi
+    if ! command -v python3 >/dev/null 2>&1; then
+        echo "  opencode (skipped: python3 not found)"
+        return 0
+    fi
+
+    mkdir -p "$conf_dir"
+    python3 - "$out" "$theme" <<'PY' || { echo "  opencode (failed)"; return 0; }
+import json, os, sys
+
+path, theme = sys.argv[1], sys.argv[2]
+if os.path.exists(path):
+    with open(path, encoding="utf-8") as fh:
+        cfg = json.load(fh)
+else:
+    cfg = {"$schema": "https://opencode.ai/v2/cli.json"}
+
+cfg.setdefault("$schema", "https://opencode.ai/v2/cli.json")
+cfg["theme"] = {"name": theme, "mode": "dark"}
+
+tmp = path + ".tmp"
+with open(tmp, "w", encoding="utf-8") as fh:
+    json.dump(cfg, fh, indent=2)
+    fh.write("\n")
+os.replace(tmp, path)
+
+print("  opencode (%s)" % theme)
+PY
+}
+
 # ── Windows Terminal ─────────────────────────────────────────────────────────
 # WSL can't colour the Windows-side emulator, so patch WT's settings.json
 # directly. One constant scheme name ("Dotfiles Active") is reused, so a theme
@@ -302,6 +356,7 @@ echo "Generating configs:"
 generate_ghostty
 generate_starship
 generate_eza
+generate_opencode
 generate_windows_terminal
 
 echo "Applying live:"

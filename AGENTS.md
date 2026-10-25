@@ -128,7 +128,7 @@ Notable absences: `herdr` itself is **not** in the Brewfile — install it out-o
 
 | Script | Driver | Generates | Reload chain |
 |--------|--------|-----------|--------------|
-| `./colorscheme-set.sh` (root) | `fzf`/numeric menu OR positional arg | `ghostty/.config/ghostty/ghostty-theme`, `starship-config/.config/active-config.toml`, `colorscheme/active/eza-colors.sh`, and (under WSL only) the `Dotfiles Active` scheme in Windows Terminal's `settings.json` | sources tmux if running; on macOS runs `ghostty/reload-config.scpt` (AppleScript); Windows Terminal hot-reloads `settings.json` |
+| `./colorscheme-set.sh` (root) | `fzf`/numeric menu OR positional arg | `ghostty/.config/ghostty/ghostty-theme`, `starship-config/.config/active-config.toml`, `colorscheme/active/eza-colors.sh`, `$XDG_CONFIG_HOME/opencode/cli.json` (theme only), and (under WSL only) the `Dotfiles Active` scheme in Windows Terminal's `settings.json` | sources tmux if running; on macOS runs `ghostty/reload-config.scpt` (AppleScript); Windows Terminal hot-reloads `settings.json`; opencode hot-reloads `cli.json` |
 | `zsh/colorscheme-set.sh` (legacy) | positional arg only, errors if missing | `kitty/active-theme.conf` (at the wrong path — see "Known inconsistencies"), `ghostty/ghostty-theme` (wrong path), `btop/themes/btop-theme.theme` (wrong path), `starship-config/active-config.toml` (wrong path), copies into `neovim/neobean/.../active-colorscheme.sh`, runs `tmux/tools/linkarzu/set_tmux_colors.sh`, plus macOS-only: sketchybar reload, kitty `SIGUSR1`, wallpaper change via `osascript`, `yabai_restart.sh`. | extensive macOS side-effects |
 
 Both copy the chosen theme from `colorscheme/list/<name>.sh` into `colorscheme/active/active-colorscheme.sh` (gitignored). Available themes in `list/`: `catppuccin-mocha`, `dracula`, `gruvbox-dark`, `linkarzu`, `nord`, `rose-pine`, `tokyo-night`.
@@ -158,6 +158,23 @@ Generated files (do **not** hand-edit — re-run `./colorscheme-set.sh` instead;
 - `btop/.config/btop/themes/btop-theme.theme` — **tracked in repo**.
 - `colorscheme/active/eza-colors.sh` — **gitignored** (`colorscheme/.gitignore`). Exports `EZA_COLORS` (24-bit truecolor built from the `linkarzu_colorNN` vars) and is sourced from `.zshrc`, so the `ls`/`ll`/`lla`/`tree` aliases follow the theme.
 - `<Windows>/…/Microsoft.WindowsTerminal_*/LocalState/settings.json` — **outside the repo** (Windows side). Only the `Dotfiles Active` scheme block and the `colorScheme` keys are rewritten; original kept as `settings.json.dotfiles-backup`. See "Windows Terminal (WSL only)".
+- `$XDG_CONFIG_HOME/opencode/cli.json` (`~/.config/opencode/cli.json`) — **outside the repo** (per-machine). Only the `theme` object is rewritten; every other CLI setting is preserved. See "opencode".
+
+### opencode (all platforms)
+
+`generate_opencode()` writes `{"theme":{"name":…,"mode":"dark"}}` into the CLI settings file — V2 stores themes in `cli.json`, **not** `opencode.jsonc`. Name mapping:
+
+| Repo theme | opencode theme |
+|---|---|
+| `catppuccin-mocha` | `catppuccin-mocha` |
+| `dracula` | `dracula` |
+| `gruvbox-dark` | `gruvbox-dark-medium` |
+| `nord` | `nord` |
+| `rose-pine` | `rose-pine` |
+| `tokyo-night` | `tokyonight` |
+| anything else (e.g. `linkarzu`) | `system` — derives colours from the terminal palette |
+
+Existing keys (`diffs`, `session`, `animations`, `$schema`) survive the rewrite; writes are atomic (`.tmp` + `os.replace`). If `~/.config/opencode/` doesn't exist (opencode never launched on that machine) it skips with a message instead of creating stray config. Requires `python3` (present via Xcode CLT on macOS).
 
 A second static theme `btop/.config/btop/themes/dracula.theme` is also tracked (not generated, hand-tuned).
 
