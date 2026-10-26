@@ -16,9 +16,6 @@ source "$DOTFILES_ZSH/modules/aliases.sh"
 # Sesh — project session manager
 source "$DOTFILES_ZSH/modules/sesh.sh"
 
-# Herdr — auto-rename the focused tab when an agent harness launches
-source "$DOTFILES_ZSH/modules/herdr-tab.sh"
-
 # Antidote — bootstrap if missing, then load plugins
 [[ -d ~/.antidote ]] || git clone --depth=1 https://github.com/mattmc3/antidote.git ~/.antidote
 source ~/.antidote/antidote.zsh
